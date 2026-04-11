@@ -5,1010 +5,679 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>時間割通知 | 水戸第一高校・附属中学校</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Shippori+Mincho:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-/* ── THEME VARIABLES ── */
-:root {
-  /* Dark Mode (Default) */
-  --bg: #0a0e1a;
-  --bg2: #0f1528;
-  --bg3: #161d35;
-  --surface: #1a2240;
-  --surface2: #1e2848;
-  --border: #2a3560;
-  --border2: #3a4870;
-  --accent: #c8a84b;
-  --accent2: #e8c86a;
-  --accent-dim: rgba(200,168,75,0.15);
-  --text: #e8eaf0;
-  --text2: #9aa5c0;
-  --text3: #6270a0;
-  --highlight: #4a7fff;
-  --highlight2: #6a9fff;
-  --red: #e05050;
-  --green: #50c878;
-  --radius: 8px;
-}
+:root { --transition-theme: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s; }
 
+[data-theme="dark"] {
+  --bg-base:       #0d1117;
+  --bg-surface:    #161b22;
+  --bg-elevated:   #1c2333;
+  --bg-hover:      #21273a;
+  --border:        #2a3444;
+  --border-strong: #3d4f6b;
+  --text-primary:  #e6edf3;
+  --text-secondary:#8b949e;
+  --text-muted:    #484f58;
+  --accent:        #c8a84b;
+  --accent-light:  #e8c86a;
+  --accent-dim:    rgba(200,168,75,0.12);
+  --accent-ring:   rgba(200,168,75,0.35);
+  --blue:          #58a6ff;
+  --blue-dim:      rgba(88,166,255,0.10);
+  --discord:       #5865f2;
+  --discord-dim:   rgba(88,101,242,0.10);
+  --red:           #f85149;
+  --red-dim:       rgba(248,81,73,0.10);
+  --green:         #3fb950;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md:     0 4px 16px rgba(0,0,0,0.5);
+}
 [data-theme="light"] {
-  /* Light Mode */
-  --bg: #f4f6f9;
-  --bg2: #ffffff;
-  --bg3: #e9ecef;
-  --surface: #ffffff;
-  --surface2: #f1f3f5;
-  --border: #dee2e6;
-  --border2: #adb5bd;
-  --accent: #b08d3a;
-  --accent2: #8a6d2b;
-  --accent-dim: rgba(176, 141, 58, 0.1);
-  --text: #212529;
-  --text2: #495057;
-  --text3: #6c757d;
-  --highlight: #3b82f6;
-  --highlight2: #2563eb;
-  --red: #dc2626;
-  --green: #16a34a;
+  --bg-base:       #f5f6f8;
+  --bg-surface:    #ffffff;
+  --bg-elevated:   #f0f2f5;
+  --bg-hover:      #e8eaed;
+  --border:        #d0d7de;
+  --border-strong: #b0bbc8;
+  --text-primary:  #1a2030;
+  --text-secondary:#57606a;
+  --text-muted:    #a0aab8;
+  --accent:        #9a7c28;
+  --accent-light:  #b89030;
+  --accent-dim:    rgba(154,124,40,0.08);
+  --accent-ring:   rgba(154,124,40,0.30);
+  --blue:          #0969da;
+  --blue-dim:      rgba(9,105,218,0.08);
+  --discord:       #4752c4;
+  --discord-dim:   rgba(71,82,196,0.08);
+  --red:           #cf222e;
+  --red-dim:       rgba(207,34,46,0.08);
+  --green:         #1a7f37;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:     0 4px 16px rgba(0,0,0,0.10);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
-
 body {
-  font-family: 'Noto Serif JP', serif;
-  background: var(--bg);
-  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
   min-height: 100vh;
-  overflow-x: hidden;
-  position: relative;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  line-height: 1.6;
+  transition: var(--transition-theme);
+  -webkit-font-smoothing: antialiased;
 }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(74,127,255,0.05) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(200,168,75,0.05) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
+/* LAYOUT */
+.page { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 640px)  { .page { padding: 0 24px; } }
+@media (min-width: 1024px) { .page { padding: 0 40px; } }
+
+/* HEADER */
+.site-header { padding: 28px 0 20px; border-bottom: 1px solid var(--border); transition: var(--transition-theme); }
+.header-row  { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+.school-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent-dim); border: 1px solid var(--accent-ring);
+  border-radius: 20px; padding: 3px 12px;
+  font-size: 11px; color: var(--accent);
+  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em;
+  margin-bottom: 10px;
 }
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-.grid-bg {
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(42,53,96,0.15) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(42,53,96,0.15) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-  z-index: 0;
+.school-title { font-family: 'Noto Serif JP', serif; font-size: clamp(17px, 4vw, 25px); font-weight: 700; color: var(--text-primary); letter-spacing: 0.04em; line-height: 1.3; }
+.school-sub   { margin-top: 4px; font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em; }
+
+.header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
+
+/* THEME TOGGLE */
+.theme-toggle {
+  position: relative; width: 52px; height: 28px;
+  background: var(--bg-elevated); border: 1px solid var(--border-strong);
+  border-radius: 14px; cursor: pointer;
+  transition: background 0.3s, border-color 0.3s; flex-shrink: 0;
 }
-
-[data-theme="light"] .grid-bg {
-  background-image:
-    linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
-}
-
-.container {
-  position: relative;
-  z-index: 1;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-/* ── HEADER ── */
-header {
-  position: relative;
-  padding: 60px 0 40px;
-  border-bottom: 1px solid var(--border);
-}
-
-.header-inner {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.header-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--accent-dim);
-  border: 1px solid rgba(200,168,75,0.4);
-  border-radius: 4px;
-  padding: 4px 12px;
-  font-size: 11px;
-  color: var(--accent);
-  letter-spacing: 0.08em;
-  font-family: 'DM Mono', monospace;
-  margin-bottom: 16px;
-}
-
-.badge-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
+.theme-toggle:hover { border-color: var(--accent); }
+.theme-toggle-thumb {
+  position: absolute; top: 3px; left: 3px;
+  width: 20px; height: 20px; border-radius: 50%;
   background: var(--accent);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
-}
-
-.school-name {
-  font-family: 'Shippori Mincho', serif;
-  font-size: clamp(22px, 4vw, 34px);
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.2;
-  letter-spacing: 0.04em;
-}
-
-.school-name span {
-  display: block;
-  font-size: clamp(12px, 2vw, 15px);
-  font-weight: 400;
-  color: var(--text2);
-  margin-top: 6px;
-  letter-spacing: 0.12em;
-  font-family: 'DM Mono', monospace;
-}
-
-.header-meta {
-  text-align: right;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 12px;
-}
-
-.header-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.last-updated {
-  font-family: 'DM Mono', monospace;
+  display: flex; align-items: center; justify-content: center;
   font-size: 11px;
-  color: var(--text3);
-  letter-spacing: 0.06em;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1); user-select: none;
 }
-
-.last-updated strong {
-  color: var(--text2);
-  display: block;
-  font-size: 13px;
-  margin-bottom: 4px;
-}
+[data-theme="light"] .theme-toggle-thumb { transform: translateX(24px); }
 
 /* BUTTONS */
-.action-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  color: var(--text2);
-  border-radius: var(--radius);
-  padding: 6px 14px;
-  font-size: 12px;
-  font-family: 'DM Mono', monospace;
-  cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: 0.04em;
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 16px; border-radius: 8px;
+  font-size: 13px; font-family: 'Noto Sans JP', sans-serif; font-weight: 500;
+  cursor: pointer; border: none; text-decoration: none;
+  transition: all 0.2s; white-space: nowrap; line-height: 1;
 }
+.btn-ghost   { background: var(--bg-elevated); color: var(--text-secondary); border: 1px solid var(--border); }
+.btn-ghost:hover { background: var(--bg-hover); color: var(--text-primary); border-color: var(--border-strong); text-decoration: none; }
+.btn-primary { background: var(--accent); color: #000; font-weight: 600; }
+.btn-primary:hover { background: var(--accent-light); text-decoration: none; }
+.btn-danger  { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
+.btn-danger:hover { background: var(--red); color: #fff; text-decoration: none; }
+.btn-discord { background: var(--discord); color: #fff; }
+.btn-discord:hover { background: #4752c4; text-decoration: none; }
+.btn-sm { padding: 5px 12px; font-size: 12px; }
+.btn[disabled] { opacity: 0.5; pointer-events: none; }
+.spin { animation: rotate 0.8s linear infinite; }
+@keyframes rotate { to { transform: rotate(360deg); } }
 
-.action-btn:hover { 
-  background: var(--surface2); 
-  color: var(--accent); 
-  border-color: var(--accent); 
-}
-
-.action-btn.spinning svg { animation: spin 1s linear infinite; }
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ── STATUS BAR ── */
+/* STATUS BAR */
 .status-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 20px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  margin: 24px 0;
-  font-size: 13px;
-  flex-wrap: wrap;
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px; background: var(--bg-surface);
+  border: 1px solid var(--border); border-radius: 10px;
+  margin: 18px 0; font-size: 12px;
+  flex-wrap: wrap; row-gap: 6px;
+  transition: var(--transition-theme);
 }
+.status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 20px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; }
+.status-pill.ok      { background: rgba(63,185,80,0.12); color: var(--green); }
+.status-pill.error   { background: var(--red-dim); color: var(--red); }
+.status-pill.loading { background: var(--blue-dim); color: var(--blue); }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.status-pill.ok .status-dot { animation: blink 2s infinite; }
+.status-message { color: var(--text-secondary); flex: 1; min-width: 100px; }
+.countdown { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); white-space: nowrap; }
 
-.status-indicator {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'DM Mono', monospace;
-}
-
-.status-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--green);
-  flex-shrink: 0;
-  animation: pulse 2s infinite;
-}
-
-.status-dot.error { background: var(--red); animation: none; }
-.status-dot.loading { background: var(--accent); }
-
-.status-text { color: var(--text2); }
-
-.status-sep { color: var(--border2); }
-
-.auto-refresh-info {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--text3);
-  margin-left: auto;
-}
-
-/* ── CHANGE ALERT ── */
+/* CHANGE ALERT */
 .change-alert {
-  display: none;
-  padding: 16px 20px;
-  background: rgba(200,168,75,0.1);
-  border: 1px solid rgba(200,168,75,0.5);
-  border-left: 4px solid var(--accent);
-  border-radius: var(--radius);
-  margin-bottom: 20px;
-  animation: slideIn 0.4s ease;
+  display: none; padding: 14px 18px;
+  background: var(--accent-dim); border: 1px solid var(--accent-ring);
+  border-left: 4px solid var(--accent); border-radius: 10px;
+  margin-bottom: 18px; gap: 12px; align-items: flex-start;
+  animation: slideDown 0.35s ease;
 }
+.change-alert.show { display: flex; }
+@keyframes slideDown { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+.alert-icon  { font-size: 18px; margin-top: 1px; flex-shrink: 0; }
+.alert-title { font-weight: 600; font-size: 13px; color: var(--accent-light); }
+.alert-desc  { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
+/* SECTION HEAD */
+.section-head { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; }
+.section-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--text-muted); text-transform: uppercase; white-space: nowrap; }
+.section-line { flex: 1; height: 1px; background: var(--border); }
+
+/* TIMETABLE */
+.table-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition-theme); }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-scroll::-webkit-scrollbar { height: 4px; }
+.table-scroll::-webkit-scrollbar-track { background: var(--bg-elevated); }
+.table-scroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
+
+#timetable table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 480px; }
+#timetable thead th {
+  background: var(--bg-elevated); color: var(--text-secondary);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+  padding: 11px 14px; text-align: center;
+  border-bottom: 1px solid var(--border-strong); white-space: nowrap;
+  position: sticky; top: 0; z-index: 2;
 }
+#timetable thead th:first-child { text-align: left; border-right: 1px solid var(--border); }
+#timetable tbody tr { transition: background 0.15s; }
+#timetable tbody tr:hover td { background: var(--bg-hover); }
+#timetable tbody tr:hover td:first-child { background: var(--bg-elevated); }
+#timetable tbody td { padding: 10px 14px; text-align: center; border-bottom: 1px solid var(--border); color: var(--text-primary); font-size: 13px; line-height: 1.5; vertical-align: middle; transition: background 0.15s; }
+#timetable tbody td:first-child { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); text-align: left; border-right: 1px solid var(--border); background: var(--bg-elevated); white-space: nowrap; font-weight: 500; }
+#timetable tbody tr:last-child td { border-bottom: none; }
+#timetable tbody td.changed { background: var(--accent-dim); color: var(--accent-light); font-weight: 500; position: relative; }
+#timetable tbody td.changed::before { content:''; position:absolute; top:0;left:0;right:0; height:2px; background:var(--accent); }
 
-.change-alert.visible { display: flex; align-items: flex-start; gap: 12px; }
+/* TABLE STATES */
+.table-state { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:60px 24px; gap:14px; color:var(--text-muted); text-align:center; }
+.spinner-svg { animation: rotate 0.9s linear infinite; color: var(--accent); }
+.table-state-title { font-size:14px; font-weight:600; color:var(--text-secondary); }
+.table-state-desc  { font-size:12px; font-family:'JetBrains Mono',monospace; max-width:400px; line-height:1.8; }
 
-.alert-icon { font-size: 20px; flex-shrink: 0; }
-.alert-title { font-weight: 600; color: var(--accent2); font-size: 14px; margin-bottom: 4px; }
-.alert-body { font-size: 13px; color: var(--text2); line-height: 1.6; }
+/* CARDS */
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; }
+.card { background:var(--bg-surface); border:1px solid var(--border); border-radius:12px; padding:20px; transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s,background 0.3s; display:flex; flex-direction:column; }
+.card:hover { border-color:var(--border-strong); box-shadow:var(--shadow-md); transform:translateY(-2px); }
+.card-icon-wrap { width:40px;height:40px; border-radius:10px; background:var(--accent-dim); border:1px solid var(--accent-ring); display:flex;align-items:center;justify-content:center; font-size:18px; margin-bottom:14px; flex-shrink:0; }
+.card.card-discord .card-icon-wrap { background:var(--discord-dim); border-color:rgba(88,101,242,0.3); }
+.card-title { font-size:14px; font-weight:700; color:var(--text-primary); margin-bottom:6px; }
+.card-desc  { font-size:12px; color:var(--text-secondary); line-height:1.7; flex:1; margin-bottom:16px; }
 
-/* ── TIMETABLE ── */
-.section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  color: var(--text3);
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+/* INFO */
+.info-card { background:var(--bg-surface); border:1px solid var(--border); border-radius:12px; padding:22px; transition:var(--transition-theme); }
+.info-card-title { font-family:'Noto Serif JP',serif; font-size:15px; font-weight:600; color:var(--text-primary); display:flex;align-items:center;gap:8px; margin-bottom:16px; }
+.info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
+.info-item { display:flex; align-items:flex-start; gap:12px; }
+.info-item-icon { width:34px;height:34px; border-radius:8px; background:var(--bg-elevated); border:1px solid var(--border); display:flex;align-items:center;justify-content:center; font-size:15px; flex-shrink:0; margin-top:1px; }
+.info-label { font-size:11px; font-weight:600; color:var(--text-muted); font-family:'JetBrains Mono',monospace; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:3px; }
+.info-text  { font-size:12px; color:var(--text-secondary); line-height:1.7; }
+.info-text a { color:var(--accent); }
 
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
+/* FOOTER */
+.site-footer { border-top:1px solid var(--border); padding:24px 0 32px; margin-top:36px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; transition:var(--transition-theme); }
+.footer-text { font-size:12px; color:var(--text-secondary); line-height:1.8; }
+.footer-text a { color:var(--text-secondary); border-bottom:1px solid var(--border); padding-bottom:1px; }
+.footer-text a:hover { color:var(--accent); border-color:var(--accent); text-decoration:none; }
+.footer-mono { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); letter-spacing:0.08em; text-align:right; line-height:1.8; }
 
-.timetable-wrapper {
-  overflow-x: auto;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg2);
-  margin-bottom: 40px;
-  -webkit-overflow-scrolling: touch;
-}
+/* MISC */
+.updated-chip { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); background:var(--bg-elevated); border:1px solid var(--border); border-radius:6px; padding:3px 10px; white-space:nowrap; }
+.fade-in { animation: fadeIn 0.4s ease forwards; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
 
-.timetable-loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px;
-  gap: 12px;
-  color: var(--text3);
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-}
-
-.spinner {
-  width: 20px; height: 20px;
-  border: 2px solid var(--border2);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-#timetable-container table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-#timetable-container th {
-  background: var(--surface);
-  color: var(--accent);
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  padding: 12px 16px;
-  text-align: center;
-  border-bottom: 1px solid var(--border2);
-  white-space: nowrap;
-  position: sticky;
-  top: 0;
-}
-
-#timetable-container th:first-child {
-  text-align: left;
-  border-right: 1px solid var(--border2);
-}
-
-#timetable-container td {
-  padding: 10px 16px;
-  text-align: center;
-  border-bottom: 1px solid var(--border);
-  color: var(--text2);
-  font-size: 13px;
-  white-space: pre-wrap;
-  word-break: break-all;
-  line-height: 1.5;
-}
-
-#timetable-container td:first-child {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--text3);
-  text-align: left;
-  border-right: 1px solid var(--border);
-  background: var(--bg2);
-  white-space: nowrap;
-}
-
-#timetable-container tr:last-child td { border-bottom: none; }
-
-#timetable-container tr:hover td { background: var(--surface); }
-#timetable-container tr:hover td:first-child { background: var(--bg2); }
-
-#timetable-container td.changed {
-  background: rgba(200,168,75,0.12);
-  color: var(--accent2);
-  position: relative;
-}
-
-#timetable-container td.changed::after {
-  content: '▲';
-  font-size: 8px;
-  color: var(--accent);
-  position: absolute;
-  top: 4px;
-  right: 4px;
-}
-
-/* ── ACTION CARDS ── */
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
-  margin-bottom: 40px;
-}
-
-.card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  transition: all 0.25s;
-  position: relative;
-  overflow: hidden;
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--accent);
-  opacity: 0;
-  transition: opacity 0.25s;
-}
-
-.card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
-[data-theme="dark"] .card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
-.card:hover::before { opacity: 1; }
-
-.card.discord::before { background: #5865f2; }
-.card.discord:hover { border-color: rgba(88,101,242,0.5); }
-
-.card-icon {
-  width: 40px; height: 40px;
-  background: var(--accent-dim);
-  border: 1px solid rgba(200,168,75,0.3);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  margin-bottom: 14px;
-}
-
-.card.discord .card-icon { background: rgba(88,101,242,0.15); border-color: rgba(88,101,242,0.3); }
-
-.card-title {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 8px;
-}
-
-.card-desc {
-  font-size: 12px;
-  color: var(--text3);
-  line-height: 1.7;
-  margin-bottom: 18px;
-}
-
-.card-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 18px;
-  border-radius: 5px;
-  font-size: 12px;
-  font-family: 'DM Mono', monospace;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  transition: all 0.2s;
-  cursor: pointer;
-  border: none;
-}
-
-.card-btn.primary {
-  background: var(--accent);
-  color: #fff;
-  font-weight: 500;
-}
-[data-theme="dark"] .card-btn.primary { color: #0a0e1a; }
-
-.card-btn.primary:hover { background: var(--accent2); }
-
-.card-btn.secondary {
-  background: transparent;
-  color: var(--red);
-  border: 1px solid var(--red);
-}
-
-.card-btn.secondary:hover { background: rgba(224,80,80,0.1); }
-
-.card-btn.discord-btn {
-  background: #5865f2;
-  color: #fff;
-}
-
-.card-btn.discord-btn:hover { background: #4752c4; }
-
-/* ── INFO SECTION ── */
-.info-section {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 28px;
-  margin-bottom: 40px;
-}
-
-.info-title {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
-}
-
-.info-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.info-item-icon {
-  width: 32px; height: 32px;
-  background: var(--surface);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.info-item-body { font-size: 13px; line-height: 1.7; color: var(--text2); }
-.info-item-label { font-weight: 600; color: var(--text); font-size: 12px; margin-bottom: 2px; font-family: 'DM Mono', monospace; }
-
-/* ── FOOTER ── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 32px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.footer-left { font-size: 12px; color: var(--text3); line-height: 1.8; }
-.footer-left a { color: var(--text2); text-decoration: none; border-bottom: 1px solid var(--border2); transition: color 0.2s; }
-.footer-left a:hover { color: var(--accent); }
-
-.footer-right {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--text3);
-  letter-spacing: 0.08em;
-}
-
-/* ── ERROR STATE ── */
-.error-state {
-  padding: 48px 20px;
-  text-align: center;
-  color: var(--text3);
-}
-
-.error-state .error-title { color: var(--red); font-size: 14px; margin-bottom: 8px; }
-.error-state .error-msg { font-size: 12px; font-family: 'DM Mono', monospace; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 600px) {
-  header { padding: 40px 0 28px; }
-  .header-inner { flex-direction: column; gap: 16px; }
-  .header-meta { text-align: left; align-items: flex-start; }
-  
-  /* スマホでのテーブル表示最適化 */
-  #timetable-container th,
-  #timetable-container td {
-    padding: 8px 10px;
-    font-size: 12px;
-  }
-  
-  /* スクロール可能であることを視覚的に明示 */
-  .timetable-wrapper {
-    box-shadow: inset -15px 0 15px -15px rgba(0,0,0,0.3);
-  }
-  [data-theme="light"] .timetable-wrapper {
-    box-shadow: inset -15px 0 15px -15px rgba(0,0,0,0.1);
-  }
-
-  .cards-grid, .info-grid {
-    grid-template-columns: 1fr;
-  }
-  footer { flex-direction: column; text-align: center; }
-}
-
-/* ── FADE IN ── */
-.fade-in {
-  animation: fadeIn 0.5s ease forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+/* RESPONSIVE */
+@media (max-width:480px) {
+  .site-header { padding:18px 0 14px; }
+  .header-right { width:100%; justify-content:flex-end; }
+  .countdown { width:100%; margin-left:0; }
+  .cards { grid-template-columns:1fr; }
+  .info-grid { grid-template-columns:1fr; }
+  .site-footer { flex-direction:column; align-items:flex-start; }
+  .footer-mono { text-align:left; }
 }
 </style>
 </head>
 <body>
-<div class="grid-bg"></div>
+<div class="page">
 
-<div class="container">
-
-  <header>
-    <div class="header-inner">
-      <div class="header-left">
-        <div class="header-badge">
-          <span class="badge-dot"></span>
-          自動検出・通知サービス稼働中
-        </div>
-        <div class="school-name">
-          水戸第一高等学校・附属中学校
-          <span>MITO DAIICHI HIGH SCHOOL — TIMETABLE NOTIFICATION</span>
-        </div>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-row">
+      <div>
+        <div class="school-badge"><span class="live-dot"></span>自動検出・通知サービス稼働中</div>
+        <div class="school-title">水戸第一高等学校・附属中学校</div>
+        <div class="school-sub">MITO DAIICHI HIGH SCHOOL — TIMETABLE NOTIFICATION</div>
       </div>
-      <div class="header-meta">
-        <div class="last-updated">
-          <strong id="last-updated-time">—</strong>
-          最終更新
-        </div>
-        <div class="header-buttons">
-          <button class="action-btn" id="theme-toggle" onclick="toggleTheme()">
-            <span id="theme-icon">🌓</span> テーマ切替
-          </button>
-          
-          <button class="action-btn" id="refresh-btn" onclick="fetchTimetable(true)">
-            <svg id="refresh-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>
-            </svg>
-            手動更新
-          </button>
+      <div class="header-right">
+        <span class="updated-chip" id="updated-chip">取得中…</span>
+        <button class="btn btn-ghost btn-sm" id="refresh-btn" onclick="manualRefresh()">
+          <svg id="refresh-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+            <path d="M21 3v5h-5"/>
+            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+            <path d="M8 16H3v5"/>
+          </svg>
+          更新
+        </button>
+        <div class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="ダーク/ライト切替" role="button" aria-label="テーマ切替">
+          <div class="theme-toggle-thumb"><span id="theme-icon">🌙</span></div>
         </div>
       </div>
     </div>
   </header>
 
+  <!-- STATUS BAR -->
   <div class="status-bar">
-    <div class="status-indicator">
-      <span class="status-dot" id="status-dot"></span>
-      <span class="status-text" id="status-text">データ取得中...</span>
+    <div class="status-pill loading" id="status-pill">
+      <span class="status-dot"></span>
+      <span id="status-label">取得中</span>
     </div>
-    <span class="status-sep">|</span>
-    <span style="font-size:12px; color:var(--text3); font-family:'DM Mono',monospace;">
-      Google Apps Script による自動変更検出
-    </span>
-    <span class="auto-refresh-info" id="next-refresh">次回自動更新: —</span>
+    <span class="status-message" id="status-message">スプレッドシートからデータを読み込んでいます…</span>
+    <span class="countdown" id="countdown">次回自動更新: —</span>
   </div>
 
+  <!-- CHANGE ALERT -->
   <div class="change-alert" id="change-alert">
     <span class="alert-icon">⚠️</span>
     <div>
       <div class="alert-title">時間割に変更が検出されました</div>
-      <div class="alert-body" id="change-detail">前回の取得から変更があります。登録済みの方にはメール・Discordで通知が送信されます。</div>
+      <div class="alert-desc" id="change-desc">前回の取得から変更があります。登録済みの方にはメール・Discordで通知が送信されます。</div>
     </div>
   </div>
 
-  <div class="section-label">時間割 — TIMETABLE</div>
-
-  <div class="timetable-wrapper">
-    <div id="timetable-container">
-      <div class="timetable-loading">
-        <div class="spinner"></div>
-        スプレッドシートからデータを取得中...
+  <!-- TIMETABLE -->
+  <div class="section-head">
+    <span class="section-label">時間割</span>
+    <div class="section-line"></div>
+    <span class="section-label">TIMETABLE</span>
+  </div>
+  <div class="table-card">
+    <div class="table-scroll">
+      <div id="timetable">
+        <div class="table-state">
+          <svg class="spinner-svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+          </svg>
+          <div class="table-state-title">データ取得中</div>
+          <div class="table-state-desc">スプレッドシートへ接続しています…</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="section-label">通知設定 — NOTIFICATION</div>
-
-  <div class="cards-grid">
+  <!-- NOTIFICATION CARDS -->
+  <div class="section-head" style="margin-top:36px;">
+    <span class="section-label">通知設定</span>
+    <div class="section-line"></div>
+    <span class="section-label">NOTIFICATION</span>
+  </div>
+  <div class="cards">
     <div class="card">
-      <div class="card-icon">📧</div>
+      <div class="card-icon-wrap">📧</div>
       <div class="card-title">メール通知を登録</div>
-      <div class="card-desc">時間割の変更が検出された際に、登録したメールアドレスへ自動で通知します。</div>
-      <a class="card-btn primary" href="https://forms.gle/mzY3XEafypk2vgZr5" target="_blank" rel="noopener">
-        &#x1F517; 通知登録フォーム
+      <div class="card-desc">時間割の変更が検出された際、登録メールアドレスへ自動通知します。</div>
+      <a class="btn btn-primary" href="https://forms.gle/mzY3XEafypk2vgZr5" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        通知登録フォーム
       </a>
     </div>
-
     <div class="card">
-      <div class="card-icon">🔕</div>
+      <div class="card-icon-wrap">🔕</div>
       <div class="card-title">メール通知を解除</div>
-      <div class="card-desc">メール通知の受信を停止したい場合は、こちらのフォームから解除できます。</div>
-      <a class="card-btn secondary" href="https://forms.gle/gDsqGesMZavUwSpu7" target="_blank" rel="noopener">
-        解除フォーム
+      <div class="card-desc">通知の受信を停止したい場合は、こちらのフォームから解除できます。</div>
+      <a class="btn btn-danger" href="https://forms.gle/gDsqGesMZavUwSpu7" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        通知解除フォーム
       </a>
     </div>
-
-    <div class="card discord">
-      <div class="card-icon">💬</div>
+    <div class="card card-discord">
+      <div class="card-icon-wrap">💬</div>
       <div class="card-title">Discord で通知を受け取る</div>
-      <div class="card-desc">Discordサーバーに参加すると、変更通知をリアルタイムで受け取れます。</div>
-      <a class="card-btn discord-btn" href="https://discord.gg/zU9URUeCRq" target="_blank" rel="noopener">
+      <div class="card-desc">Discordサーバーに参加するとリアルタイムで変更通知を受け取れます。</div>
+      <a class="btn btn-discord" href="https://discord.gg/zU9URUeCRq" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.8 19.8 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
         Discord に参加
       </a>
     </div>
   </div>
 
-  <div class="section-label">このサービスについて — ABOUT</div>
-
-  <div class="info-section">
-    <div class="info-title">
-      <span>⚙️</span> サービス概要
-    </div>
+  <!-- ABOUT -->
+  <div class="section-head" style="margin-top:36px;">
+    <span class="section-label">このサービスについて</span>
+    <div class="section-line"></div>
+    <span class="section-label">ABOUT</span>
+  </div>
+  <div class="info-card">
+    <div class="info-card-title">⚙️ サービス概要</div>
     <div class="info-grid">
       <div class="info-item">
         <div class="info-item-icon">🤖</div>
-        <div class="info-item-body">
-          <div class="info-item-label">自動変更検出</div>
-          学校が公開しているスプレッドシートの時間割を定期的に監視し、変更を自動で検出します。
+        <div>
+          <div class="info-label">自動変更検出</div>
+          <div class="info-text">学校公開のスプレッドシートを定期監視し、変更を自動で検出します。</div>
         </div>
       </div>
       <div class="info-item">
         <div class="info-item-icon">📨</div>
-        <div class="info-item-body">
-          <div class="info-item-label">即時通知</div>
-          変更が確認され次第、登録済みのメールアドレス・Discordサーバーへ即時通知します。
+        <div>
+          <div class="info-label">即時通知</div>
+          <div class="info-text">変更確認後、登録済みのメール・Discordへ即時通知します。</div>
         </div>
       </div>
       <div class="info-item">
         <div class="info-item-icon">🛠️</div>
-        <div class="info-item-body">
-          <div class="info-item-label">技術基盤</div>
-          Google Apps Script を活用した独自開発のサービスです。このページも自動でスプレッドシートを取得し表示します。
+        <div>
+          <div class="info-label">技術基盤</div>
+          <div class="info-text">Google Apps Script を活用した独自開発サービスです。このページもスプレッドシートを直接取得して表示します。</div>
         </div>
       </div>
       <div class="info-item">
         <div class="info-item-icon">📋</div>
-        <div class="info-item-body">
-          <div class="info-item-label">公式データ参照</div>
-          表示される時間割は学校公式のスプレッドシートを直接参照しています。
-          <a href="https://docs.google.com/spreadsheets/d/1fdSGqT1s2kit91TcQV_mjcuvOawGAU6JZ_5N684bH3U/" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">→ 元データを開く</a>
+        <div>
+          <div class="info-label">公式データ参照</div>
+          <div class="info-text">学校公式スプレッドシートを直接参照しています。<br><a href="https://docs.google.com/spreadsheets/d/1fdSGqT1s2kit91TcQV_mjcuvOawGAU6JZ_5N684bH3U/" target="_blank" rel="noopener">→ 元データを開く</a></div>
         </div>
       </div>
     </div>
   </div>
 
-  <footer>
-    <div class="footer-left">
-      ご不明な点・ご要望は開発者までお気軽にお問い合わせください。<br>
-      <a href="mailto:info@example.com">info@example.com</a>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-text">
+      ご不明な点・ご要望は開発者までお気軽にどうぞ<br>
+      <a href="mailto:contact@astro-root.com">contact@astro-root.com</a>
     </div>
-    <div class="footer-right">
-      POWERED BY GOOGLE APPS SCRIPT<br>
-      © ASTRO-ROOT DEVELOPMENT
-    </div>
+    <div class="footer-mono">POWERED BY GOOGLE APPS SCRIPT<br>© ASTRO-ROOT DEVELOPMENT</div>
   </footer>
 
 </div>
 
 <script>
-// ==========================================
-// 1. テーマ（ダーク/ライトモード）の制御
-// ==========================================
-function initTheme() {
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  updateThemeIcon(savedTheme);
+/* ═══════════ CONFIG ═══════════ */
+const SHEET_ID   = '1fdSGqT1s2kit91TcQV_mjcuvOawGAU6JZ_5N684bH3U';
+const GID        = '0';
+const REFRESH_MS = 5 * 60 * 1000;
+
+/* ═══════════ STATE ═══════════ */
+let prevRows       = null;
+let refreshTimer   = null;
+let countdownTimer = null;
+let nextAt         = null;
+let isFetching     = false;
+
+/* ═══════════ THEME ═══════════ */
+(function initTheme() {
+  const saved = localStorage.getItem('theme');
+  const pref  = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  applyTheme(saved || pref, false);
+})();
+
+function applyTheme(t, save) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('theme-icon').textContent = t === 'dark' ? '🌙' : '☀️';
+  if (save) localStorage.setItem('theme', t);
 }
 
 function toggleTheme() {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
-  updateThemeIcon(newTheme);
+  const cur = document.documentElement.getAttribute('data-theme');
+  applyTheme(cur === 'dark' ? 'light' : 'dark', true);
 }
 
-function updateThemeIcon(theme) {
-  const icon = document.getElementById('theme-icon');
-  if (icon) icon.textContent = theme === 'dark' ? '🌓' : '☀️';
+/* ═══════════ STATUS ═══════════ */
+function setStatus(state, label, msg) {
+  document.getElementById('status-pill').className = 'status-pill ' + state;
+  document.getElementById('status-label').textContent   = label;
+  document.getElementById('status-message').textContent = msg;
 }
 
-// ==========================================
-// 2. データ取得のロジック
-// ==========================================
-const SHEET_ID = '1fdSGqT1s2kit91TcQV_mjcuvOawGAU6JZ_5N684bH3U';
-const GID = '0';
-const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
-const REFRESH_INTERVAL = 5 * 60 * 1000;
+/* ═══════════ COUNTDOWN ═══════════ */
+function startCountdown() {
+  clearInterval(countdownTimer);
+  nextAt = Date.now() + REFRESH_MS;
+  countdownTimer = setInterval(() => {
+    const rem = Math.max(0, Math.floor((nextAt - Date.now()) / 1000));
+    const m   = Math.floor(rem / 60);
+    const s   = String(rem % 60).padStart(2, '0');
+    document.getElementById('countdown').textContent = rem > 0 ? `次回自動更新: ${m}分${s}秒後` : '更新中…';
+    if (rem === 0) clearInterval(countdownTimer);
+  }, 1000);
+}
 
-let previousData = null;
-let refreshTimer = null;
-let countdownTimer = null;
-let nextRefreshTime = null;
-
-// CSVのパース関数
-function parseCSV(text) {
-  const rows = [];
-  const lines = text.split('\n');
+/* ═══════════ CSV PARSER ═══════════ */
+function parseCSV(raw) {
+  const rows  = [];
+  const lines = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
   for (const line of lines) {
     if (!line.trim()) continue;
     const cells = [];
-    let inQuote = false, cell = '';
+    let inQ = false, cell = '';
     for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-      if (ch === '"' && !inQuote) { inQuote = true; }
-      else if (ch === '"' && inQuote && line[i+1] === '"') { cell += '"'; i++; }
-      else if (ch === '"' && inQuote) { inQuote = false; }
-      else if (ch === ',' && !inQuote) { cells.push(cell); cell = ''; }
-      else { cell += ch; }
+      const c = line[i];
+      if (c === '"' && !inQ)                         { inQ = true; }
+      else if (c === '"' && inQ && line[i+1] === '"') { cell += '"'; i++; }
+      else if (c === '"' && inQ)                     { inQ = false; }
+      else if (c === ',' && !inQ)                    { cells.push(cell.trim()); cell = ''; }
+      else                                            { cell += c; }
     }
-    cells.push(cell);
+    cells.push(cell.trim());
     rows.push(cells);
   }
   return rows;
 }
 
-// 変更の検知
-function detectChanges(oldRows, newRows) {
-  if (!oldRows) return [];
-  const changes = [];
-  const maxR = Math.max(oldRows.length, newRows.length);
+/* ═══════════ CHANGE DETECTION ═══════════ */
+function detectChanges(a, b) {
+  if (!a) return [];
+  const out  = [];
+  const maxR = Math.max(a.length, b.length);
   for (let r = 1; r < maxR; r++) {
-    const oldRow = oldRows[r] || [];
-    const newRow = newRows[r] || [];
-    const maxC = Math.max(oldRow.length, newRow.length);
+    const maxC = Math.max((a[r]||[]).length, (b[r]||[]).length);
     for (let c = 0; c < maxC; c++) {
-      const ov = (oldRow[c] || '').trim();
-      const nv = (newRow[c] || '').trim();
-      if (ov !== nv) changes.push({ row: r, col: c, from: ov, to: nv });
+      if (((a[r]||[])[c]||'').trim() !== ((b[r]||[])[c]||'').trim()) out.push({r,c});
     }
   }
-  return changes;
+  return out;
 }
 
-// テーブル描画
-function renderTable(rows, changedCells) {
-  if (!rows || rows.length === 0) {
-    return '<div class="error-state"><div class="error-title">データなし</div><div class="error-msg">スプレッドシートにデータが見つかりませんでした。</div></div>';
+/* ═══════════ HTML ESCAPE ═══════════ */
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ═══════════ RENDER ═══════════ */
+function renderTable(rows, changed) {
+  if (!rows || rows.length === 0) return stateHtml('error','データなし','スプレッドシートにデータが見つかりませんでした。');
+  const cs = new Set(changed.map(x => `${x.r}-${x.c}`));
+  let h = '<table><thead><tr>';
+  (rows[0]||[]).forEach(cell => { h += `<th>${esc(cell)}</th>`; });
+  h += '</tr></thead><tbody>';
+  for (let r = 1; r < rows.length; r++) {
+    h += '<tr>';
+    (rows[r]||[]).forEach((cell, c) => {
+      h += `<td${cs.has(`${r}-${c}`) ? ' class="changed"' : ''}>${esc(cell)}</td>`;
+    });
+    h += '</tr>';
   }
+  return h + '</tbody></table>';
+}
 
-  const changedSet = new Set(changedCells.map(c => `${c.row}-${c.col}`));
-  let html = '<table>';
+function stateHtml(type, title, desc, link) {
+  const icon = type === 'error'
+    ? `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
+    : `<svg class="spinner-svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`;
+  const lnk = link ? `<br><br><a href="${link}" target="_blank" rel="noopener" style="color:var(--accent)">→ スプレッドシートを直接開く</a>` : '';
+  return `<div class="table-state">${icon}<div class="table-state-title">${esc(title)}</div><div class="table-state-desc">${esc(desc)}${lnk}</div></div>`;
+}
 
-  rows.forEach((row, ri) => {
-    if (ri === 0) {
-      html += '<thead><tr>';
-      row.forEach(cell => {
-        html += `<th>${cell || ''}</th>`;
-      });
-      html += '</tr></thead><tbody>';
-    } else {
-      html += '<tr>';
-      row.forEach((cell, ci) => {
-        const isChanged = changedSet.has(`${ri}-${ci}`);
-        html += `<td class="${isChanged ? 'changed' : ''}">${cell || ''}</td>`;
-      });
-      html += '</tr>';
+/* ═══════════════════════════════════════════════════
+   FETCH STRATEGY 1 — gviz/tq JSONP
+   公開スプレッドシートならCORSなしで取得できる
+   最も確実な方法
+═══════════════════════════════════════════════════ */
+function fetchViaGviz() {
+  return new Promise((resolve, reject) => {
+    const cb     = '_gviz_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    const script = document.createElement('script');
+    const timer  = setTimeout(() => { cleanup(); reject(new Error('gviz timeout')); }, 15000);
+
+    function cleanup() {
+      clearTimeout(timer);
+      try { delete window[cb]; } catch(e) {}
+      if (script.parentNode) script.parentNode.removeChild(script);
     }
+
+    window[cb] = function(resp) {
+      cleanup();
+      try {
+        if (!resp || resp.status !== 'ok') { reject(new Error('gviz status: ' + (resp&&resp.status))); return; }
+        const tbl  = resp.table;
+        const rows = [];
+        rows.push(tbl.cols.map(c => c.label || ''));
+        for (const row of (tbl.rows || [])) {
+          rows.push((row.c || []).map(cell => (cell && cell.v != null) ? String(cell.v) : ''));
+        }
+        resolve(rows);
+      } catch(e) { reject(e); }
+    };
+
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq`
+              + `?tqx=out:json;responseHandler:${cb}&gid=${GID}&t=${Date.now()}`;
+    script.src     = url;
+    script.onerror = () => { cleanup(); reject(new Error('gviz load failed')); };
+    document.head.appendChild(script);
   });
-
-  html += '</tbody></table>';
-  return html;
 }
 
-function setStatus(state, message) {
-  const dot = document.getElementById('status-dot');
-  const text = document.getElementById('status-text');
-  dot.className = 'status-dot ' + (state === 'ok' ? '' : state === 'error' ? 'error' : 'loading');
-  text.textContent = message;
+/* ═══════════════════════════════════════════════════
+   FETCH STRATEGY 2 — CSV export via fetch
+   gviz が失敗した場合のフォールバック
+═══════════════════════════════════════════════════ */
+async function fetchViaCSV() {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export`
+            + `?format=csv&gid=${GID}&t=${Date.now()}`;
+  const resp = await fetch(url, { cache: 'no-store' });
+  if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+  const text = await resp.text();
+  if (!text.trim()) throw new Error('empty response');
+  return parseCSV(text);
 }
 
-function updateLastUpdated() {
-  const now = new Date();
-  document.getElementById('last-updated-time').textContent =
-    now.toLocaleDateString('ja-JP') + ' ' +
-    now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
-}
+/* ═══════════ MAIN FETCH ═══════════ */
+async function fetchTimetable() {
+  if (isFetching) return;
+  isFetching = true;
 
-function startCountdown() {
-  clearInterval(countdownTimer);
-  nextRefreshTime = Date.now() + REFRESH_INTERVAL;
-  countdownTimer = setInterval(() => {
-    const remaining = Math.max(0, Math.round((nextRefreshTime - Date.now()) / 1000));
-    const m = Math.floor(remaining / 60);
-    const s = remaining % 60;
-    document.getElementById('next-refresh').textContent =
-      `次回自動更新: ${m}分${s.toString().padStart(2,'0')}秒後`;
-    if (remaining === 0) clearInterval(countdownTimer);
-  }, 1000);
-}
+  setStatus('loading', '取得中', 'スプレッドシートへ接続しています…');
+  if (!prevRows) {
+    document.getElementById('timetable').innerHTML = stateHtml('loading', 'データ取得中', 'スプレッドシートへ接続しています…');
+  }
 
-// データの取得処理
-async function fetchTimetable(manual = false) {
-  const btn = document.getElementById('refresh-btn');
-  const icon = document.getElementById('refresh-icon');
-  btn.disabled = true;
-  btn.classList.add('spinning');
-  
-  setStatus('loading', 'データを取得中...');
+  let rows = null;
+  let method = '';
 
   try {
-    /* ================================================================================
-    【自動取得エラーの原因について】
-    現在、直接GoogleスプレッドシートのCSV出力URLを叩いていますが、
-    シートの公開設定によってはブラウザの「CORSエラー（セキュリティブロック）」に引っかかり、
-    JavaScriptからの読み込みが弾かれてしまいます。
-
-    ★根本的解決策（推奨）
-    GAS（Google Apps Script）でAPIを作成し、そこからJSONを受け取るようにします。
-    GASを用いたコードに差し替える場合は、以下の行をコメントアウトし、
-    その下の【GASを使った場合のコード】を有効化してください。
-    ================================================================================
-    */
-    
-    // 【現在のコード（CSV直接取得）】
-    const resp = await fetch(CSV_URL + '&t=' + Date.now(), { cache: 'no-store' });
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    const text = await resp.text();
-    
-    // エラーページ（Googleのログイン画面等）のHTMLが返ってきていないか簡易チェック
-    if (text.includes('<html')) {
-        throw new Error("CORS制限、またはシートが一般公開されていません");
-    }
-    const rows = parseCSV(text);
-
-    /* // 【GASを使った場合のコード例】
-    // 事前にGASでdoGet関数を作成し、「全員」を対象にWebアプリとしてデプロイしておく必要があります
-    // const GAS_API_URL = "https://script.google.com/macros/s/あなたのGASのID/exec";
-    // const resp = await fetch(GAS_API_URL);
-    // if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    // const rows = await resp.json(); // GAS側で2次元配列を返すように設定する
-    */
-
-    const changes = detectChanges(previousData, rows);
-    const container = document.getElementById('timetable-container');
-    container.innerHTML = renderTable(rows, changes);
-    container.classList.add('fade-in');
-
-    if (changes.length > 0 && previousData !== null) {
-      const alert = document.getElementById('change-alert');
-      const detail = document.getElementById('change-detail');
-      alert.classList.add('visible');
-      detail.textContent = `${changes.length} 箇所の変更が検出されました。登録済みの方へ通知が送信されます。`;
-      if (Notification && Notification.permission === 'granted') {
-        new Notification('時間割変更通知', {
-          body: `水戸第一高校の時間割が${changes.length}箇所変更されました。`
-        });
+    rows   = await fetchViaGviz();
+    method = 'gviz/tq';
+  } catch (e1) {
+    console.warn('[gviz] failed:', e1.message, '→ CSV fallback');
+    try {
+      rows   = await fetchViaCSV();
+      method = 'CSV';
+    } catch (e2) {
+      console.error('[CSV] failed:', e2.message);
+      isFetching = false;
+      if (!prevRows) {
+        document.getElementById('timetable').innerHTML = stateHtml(
+          'error',
+          'データ取得エラー',
+          'スプレッドシートへの接続に失敗しました。スプレッドシートが「リンクを知っている全員が閲覧可能」に設定されているか確認してください。',
+          `https://docs.google.com/spreadsheets/d/${SHEET_ID}/`
+        );
       }
-    } else {
-      document.getElementById('change-alert').classList.remove('visible');
+      setStatus('error', 'エラー', '接続失敗: ' + e2.message);
+      document.getElementById('updated-chip').textContent = '取得失敗';
+      scheduleNext();
+      return;
     }
-
-    previousData = rows;
-    updateLastUpdated();
-    setStatus('ok', 'データ取得完了 — 正常に読み込みました');
-
-  } catch (err) {
-    console.error(err);
-    if (!previousData) {
-      document.getElementById('timetable-container').innerHTML = `
-        <div class="error-state">
-          <div class="error-title">⚠ データ取得エラー</div>
-          <div class="error-msg">${err.message}<br><br>スプレッドシートが一般公開設定（リンクを知っている全員が閲覧可）になっているか確認してください。<br>または <a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/" target="_blank" style="color:var(--accent)">直接スプレッドシートを開く</a></div>
-        </div>`;
-    }
-    setStatus('error', 'データ取得に失敗しました — 前回のデータを表示中');
   }
 
-  btn.disabled = false;
-  btn.classList.remove('spinning');
+  const changes = detectChanges(prevRows, rows);
+  const el      = document.getElementById('timetable');
+  el.innerHTML  = renderTable(rows, changes);
+  el.classList.add('fade-in');
 
+  if (changes.length > 0 && prevRows !== null) {
+    document.getElementById('change-alert').classList.add('show');
+    document.getElementById('change-desc').textContent =
+      `${changes.length} 箇所の変更が検出されました。登録済みの方へ通知が送信されます。`;
+    tryBrowserNotify(changes.length);
+  } else {
+    document.getElementById('change-alert').classList.remove('show');
+  }
+
+  prevRows = rows;
+
+  const now = new Date();
+  const ts  = now.toLocaleDateString('ja-JP') + ' '
+            + now.toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'});
+  document.getElementById('updated-chip').textContent = ts + ' 更新';
+  setStatus('ok', '正常', `取得完了（${method}）`);
+  isFetching = false;
+  scheduleNext();
+}
+
+function scheduleNext() {
   clearTimeout(refreshTimer);
-  refreshTimer = setTimeout(() => fetchTimetable(), REFRESH_INTERVAL);
+  refreshTimer = setTimeout(fetchTimetable, REFRESH_MS);
   startCountdown();
 }
 
-function requestNotificationPermission() {
-  if ('Notification' in window && Notification.permission === 'default') {
-    Notification.requestPermission();
+/* ═══════════ BROWSER NOTIFICATION ═══════════ */
+function tryBrowserNotify(count) {
+  if (!('Notification' in window)) return;
+  const fire = () => new Notification('時間割変更通知', {
+    body: `水戸第一高校の時間割が ${count} 箇所変更されました。`
+  });
+  if (Notification.permission === 'granted') fire();
+  else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(p => { if (p === 'granted') fire(); });
   }
 }
 
-// ==========================================
-// 3. 初期化処理
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-  initTheme(); // テーマ設定を読み込み
-  fetchTimetable();
-  requestNotificationPermission();
-});
+/* ═══════════ MANUAL REFRESH ═══════════ */
+function manualRefresh() {
+  clearTimeout(refreshTimer);
+  clearInterval(countdownTimer);
+  const icon = document.getElementById('refresh-icon');
+  const btn  = document.getElementById('refresh-btn');
+  icon.classList.add('spin');
+  btn.setAttribute('disabled', '');
+  fetchTimetable().finally(() => {
+    icon.classList.remove('spin');
+    btn.removeAttribute('disabled');
+  });
+}
 
+/* ═══════════ VISIBILITY ═══════════ */
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible') {
+  if (document.visibilityState === 'visible' && nextAt && Date.now() > nextAt) {
     clearTimeout(refreshTimer);
     fetchTimetable();
   }
 });
+
+/* ═══════════ INIT ═══════════ */
+fetchTimetable();
 </script>
 </body>
 </html>
