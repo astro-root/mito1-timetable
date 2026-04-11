@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>時間割通知 | 水戸第一高校・附属中学校</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Shippori+Mincho:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg2: #0f1528;
+  --bg3: #161d35;
+  --surface: #1a2240;
+  --surface2: #1e2848;
+  --border: #2a3560;
+  --border2: #3a4870;
+  --accent: #c8a84b;
+  --accent2: #e8c86a;
+  --accent-dim: rgba(200,168,75,0.15);
+  --text: #e8eaf0;
+  --text2: #9aa5c0;
+  --text3: #6270a0;
+  --highlight: #4a7fff;
+  --highlight2: #6a9fff;
+  --red: #e05050;
+  --green: #50c878;
+  --radius: 8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Serif JP', serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(74,127,255,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(200,168,75,0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(42,53,96,0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42,53,96,0.3) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── HEADER ── */
+header {
+  position: relative;
+  padding: 60px 0 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent-dim);
+  border: 1px solid rgba(200,168,75,0.4);
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  font-family: 'DM Mono', monospace;
+  margin-bottom: 16px;
+}
+
+.badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.school-name {
+  font-family: 'Shippori Mincho', serif;
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+}
+
+.school-name span {
+  display: block;
+  font-size: clamp(12px, 2vw, 15px);
+  font-weight: 400;
+  color: var(--text2);
+  margin-top: 6px;
+  letter-spacing: 0.12em;
+  font-family: 'DM Mono', monospace;
+}
+
+.header-meta {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.last-updated {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 0.06em;
+}
+
+.last-updated strong {
+  color: var(--text2);
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  border-radius: var(--radius);
+  padding: 6px 14px;
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.04em;
+}
+
+.refresh-btn:hover { background: var(--surface2); color: var(--accent); border-color: var(--accent); }
+
+.refresh-btn.spinning svg { animation: spin 1s linear infinite; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── STATUS BAR ── */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 24px 0;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Mono', monospace;
+}
+
+.status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+  animation: pulse 2s infinite;
+}
+
+.status-dot.error { background: var(--red); animation: none; }
+.status-dot.loading { background: var(--accent); }
+
+.status-text { color: var(--text2); }
+
+.status-sep { color: var(--border2); }
+
+.auto-refresh-info {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+  margin-left: auto;
+}
+
+/* ── CHANGE ALERT ── */
+.change-alert {
+  display: none;
+  padding: 16px 20px;
+  background: rgba(200,168,75,0.1);
+  border: 1px solid rgba(200,168,75,0.5);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.change-alert.visible { display: flex; align-items: flex-start; gap: 12px; }
+
+.alert-icon { font-size: 20px; flex-shrink: 0; }
+.alert-title { font-weight: 600; color: var(--accent2); font-size: 14px; margin-bottom: 4px; }
+.alert-body { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+/* ── TIMETABLE ── */
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--text3);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.timetable-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg2);
+  margin-bottom: 40px;
+}
+
+.timetable-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 12px;
+  color: var(--text3);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+}
+
+.spinner {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+#timetable-container table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+#timetable-container th {
+  background: var(--surface);
+  color: var(--accent);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 12px 16px;
+  text-align: center;
+  border-bottom: 1px solid var(--border2);
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+}
+
+#timetable-container th:first-child {
+  text-align: left;
+  border-right: 1px solid var(--border2);
+}
+
+#timetable-container td {
+  padding: 10px 16px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2);
+  font-size: 13px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+#timetable-container td:first-child {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+  text-align: left;
+  border-right: 1px solid var(--border);
+  background: var(--bg2);
+  white-space: nowrap;
+}
+
+#timetable-container tr:last-child td { border-bottom: none; }
+
+#timetable-container tr:hover td { background: var(--surface); }
+#timetable-container tr:hover td:first-child { background: var(--bg2); }
+
+#timetable-container td.changed {
+  background: rgba(200,168,75,0.12);
+  color: var(--accent2);
+  position: relative;
+}
+
+#timetable-container td.changed::after {
+  content: '▲';
+  font-size: 8px;
+  color: var(--accent);
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
+
+/* ── ACTION CARDS ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.card:hover::before { opacity: 1; }
+
+.card.discord::before { background: #5865f2; }
+.card.discord:hover { border-color: rgba(88,101,242,0.5); }
+
+.card-icon {
+  width: 40px; height: 40px;
+  background: var(--accent-dim);
+  border: 1px solid rgba(200,168,75,0.3);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+
+.card.discord .card-icon { background: rgba(88,101,242,0.15); border-color: rgba(88,101,242,0.3); }
+
+.card-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: var(--text3);
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.card-btn.primary {
+  background: var(--accent);
+  color: #0a0e1a;
+  font-weight: 500;
+}
+
+.card-btn.primary:hover { background: var(--accent2); }
+
+.card-btn.secondary {
+  background: transparent;
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+
+.card-btn.secondary:hover { background: rgba(224,80,80,0.1); }
+
+.card-btn.discord-btn {
+  background: #5865f2;
+  color: #fff;
+}
+
+.card-btn.discord-btn:hover { background: #4752c4; }
+
+/* ── INFO SECTION ── */
+.info-section {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 40px;
+}
+
+.info-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.info-item-icon {
+  width: 32px; height: 32px;
+  background: var(--surface);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.info-item-body { font-size: 13px; line-height: 1.7; color: var(--text2); }
+.info-item-label { font-weight: 600; color: var(--text); font-size: 12px; margin-bottom: 2px; font-family: 'DM Mono', monospace; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-left { font-size: 12px; color: var(--text3); line-height: 1.8; }
+.footer-left a { color: var(--text2); text-decoration: none; border-bottom: 1px solid var(--border2); transition: color 0.2s; }
+.footer-left a:hover { color: var(--accent); }
+
+.footer-right {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+}
+
+/* ── ERROR STATE ── */
+.error-state {
+  padding: 48px 20px;
+  text-align: center;
+  color: var(--text3);
+}
+
+.error-state .error-title { color: var(--red); font-size: 14px; margin-bottom: 8px; }
+.error-state .error-msg { font-size: 12px; font-family: 'DM Mono', monospace; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  header { padding: 40px 0 28px; }
+  .header-inner { flex-direction: column; gap: 16px; }
+  .header-meta { text-align: left; }
+  footer { flex-direction: column; }
+}
+
+/* ── FADE IN ── */
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="header-badge">
+          <span class="badge-dot"></span>
+          自動検出・通知サービス稼働中
+        </div>
+        <div class="school-name">
+          水戸第一高等学校・附属中学校
+          <span>MITO DAIICHI HIGH SCHOOL — TIMETABLE NOTIFICATION</span>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div class="last-updated">
+          <strong id="last-updated-time">—</strong>
+          最終更新
+        </div>
+        <button class="refresh-btn" id="refresh-btn" onclick="fetchTimetable(true)">
+          <svg id="refresh-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>
+          </svg>
+          手動更新
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <div class="status-indicator">
+      <span class="status-dot" id="status-dot"></span>
+      <span class="status-text" id="status-text">データ取得中...</span>
+    </div>
+    <span class="status-sep">|</span>
+    <span style="font-size:12px; color:var(--text3); font-family:'DM Mono',monospace;">
+      Google Apps Script による自動変更検出
+    </span>
+    <span class="auto-refresh-info" id="next-refresh">次回自動更新: —</span>
+  </div>
+
+  <!-- CHANGE ALERT -->
+  <div class="change-alert" id="change-alert">
+    <span class="alert-icon">⚠️</span>
+    <div>
+      <div class="alert-title">時間割に変更が検出されました</div>
+      <div class="alert-body" id="change-detail">前回の取得から変更があります。登録済みの方にはメール・Discordで通知が送信されます。</div>
+    </div>
+  </div>
+
+  <!-- TIMETABLE -->
+  <div class="section-label">時間割 — TIMETABLE</div>
+
+  <div class="timetable-wrapper">
+    <div id="timetable-container">
+      <div class="timetable-loading">
+        <div class="spinner"></div>
+        スプレッドシートからデータを取得中...
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTION CARDS -->
+  <div class="section-label">通知設定 — NOTIFICATION</div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">📧</div>
+      <div class="card-title">メール通知を登録</div>
+      <div class="card-desc">時間割の変更が検出された際に、登録したメールアドレスへ自動で通知します。</div>
+      <a class="card-btn primary" href="https://forms.gle/mzY3XEafypk2vgZr5" target="_blank" rel="noopener">
+        &#x1F517; 通知登録フォーム
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🔕</div>
+      <div class="card-title">メール通知を解除</div>
+      <div class="card-desc">メール通知の受信を停止したい場合は、こちらのフォームから解除できます。</div>
+      <a class="card-btn secondary" href="https://forms.gle/gDsqGesMZavUwSpu7" target="_blank" rel="noopener">
+        解除フォーム
+      </a>
+    </div>
+
+    <div class="card discord">
+      <div class="card-icon">💬</div>
+      <div class="card-title">Discord で通知を受け取る</div>
+      <div class="card-desc">Discordサーバーに参加すると、変更通知をリアルタイムで受け取れます。</div>
+      <a class="card-btn discord-btn" href="https://discord.gg/zU9URUeCRq" target="_blank" rel="noopener">
+        Discord に参加
+      </a>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div class="section-label">このサービスについて — ABOUT</div>
+
+  <div class="info-section">
+    <div class="info-title">
+      <span>⚙️</span> サービス概要
+    </div>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-item-icon">🤖</div>
+        <div class="info-item-body">
+          <div class="info-item-label">自動変更検出</div>
+          学校が公開しているスプレッドシートの時間割を定期的に監視し、変更を自動で検出します。
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-item-icon">📨</div>
+        <div class="info-item-body">
+          <div class="info-item-label">即時通知</div>
+          変更が確認され次第、登録済みのメールアドレス・Discordサーバーへ即時通知します。
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-item-icon">🛠️</div>
+        <div class="info-item-body">
+          <div class="info-item-label">技術基盤</div>
+          Google Apps Script を活用した独自開発のサービスです。このページも自動でスプレッドシートを取得し表示します。
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-item-icon">📋</div>
+        <div class="info-item-body">
+          <div class="info-item-label">公式データ参照</div>
+          表示される時間割は学校公式のスプレッドシートを直接参照しています。
+          <a href="https://docs.google.com/spreadsheets/d/1fdSGqT1s2kit91TcQV_mjcuvOawGAU6JZ_5N684bH3U/" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">→ 元データを開く</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      ご不明な点・ご要望は開発者までお気軽にお問い合わせください。<br>
+      <a href="mailto:contact@astro-root.com">contact@astro-root.com</a>
+    </div>
+    <div class="footer-right">
+      POWERED BY GOOGLE APPS SCRIPT<br>
+      © ASTRO-ROOT DEVELOPMENT
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const SHEET_ID = '1fdSGqT1s2kit91TcQV_mjcuvOawGAU6JZ_5N684bH3U';
+const GID = '0';
+const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
+const REFRESH_INTERVAL = 5 * 60 * 1000;
+
+let previousData = null;
+let refreshTimer = null;
+let countdownTimer = null;
+let nextRefreshTime = null;
+
+function parseCSV(text) {
+  const rows = [];
+  const lines = text.split('\n');
+  for (const line of lines) {
+    if (!line.trim()) continue;
+    const cells = [];
+    let inQuote = false, cell = '';
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"' && !inQuote) { inQuote = true; }
+      else if (ch === '"' && inQuote && line[i+1] === '"') { cell += '"'; i++; }
+      else if (ch === '"' && inQuote) { inQuote = false; }
+      else if (ch === ',' && !inQuote) { cells.push(cell); cell = ''; }
+      else { cell += ch; }
+    }
+    cells.push(cell);
+    rows.push(cells);
+  }
+  return rows;
+}
+
+function detectChanges(oldRows, newRows) {
+  if (!oldRows) return [];
+  const changes = [];
+  const maxR = Math.max(oldRows.length, newRows.length);
+  for (let r = 1; r < maxR; r++) {
+    const oldRow = oldRows[r] || [];
+    const newRow = newRows[r] || [];
+    const maxC = Math.max(oldRow.length, newRow.length);
+    for (let c = 0; c < maxC; c++) {
+      const ov = (oldRow[c] || '').trim();
+      const nv = (newRow[c] || '').trim();
+      if (ov !== nv) changes.push({ row: r, col: c, from: ov, to: nv });
+    }
+  }
+  return changes;
+}
+
+function renderTable(rows, changedCells) {
+  if (!rows || rows.length === 0) {
+    return '<div class="error-state"><div class="error-title">データなし</div><div class="error-msg">スプレッドシートにデータが見つかりませんでした。</div></div>';
+  }
+
+  const changedSet = new Set(changedCells.map(c => `${c.row}-${c.col}`));
+  let html = '<table>';
+
+  rows.forEach((row, ri) => {
+    if (ri === 0) {
+      html += '<thead><tr>';
+      row.forEach(cell => {
+        html += `<th>${cell || ''}</th>`;
+      });
+      html += '</tr></thead><tbody>';
+    } else {
+      html += '<tr>';
+      row.forEach((cell, ci) => {
+        const isChanged = changedSet.has(`${ri}-${ci}`);
+        html += `<td class="${isChanged ? 'changed' : ''}">${cell || ''}</td>`;
+      });
+      html += '</tr>';
+    }
+  });
+
+  html += '</tbody></table>';
+  return html;
+}
+
+function setStatus(state, message) {
+  const dot = document.getElementById('status-dot');
+  const text = document.getElementById('status-text');
+  dot.className = 'status-dot ' + (state === 'ok' ? '' : state === 'error' ? 'error' : 'loading');
+  text.textContent = message;
+}
+
+function updateLastUpdated() {
+  const now = new Date();
+  document.getElementById('last-updated-time').textContent =
+    now.toLocaleDateString('ja-JP') + ' ' +
+    now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+}
+
+function startCountdown() {
+  clearInterval(countdownTimer);
+  nextRefreshTime = Date.now() + REFRESH_INTERVAL;
+  countdownTimer = setInterval(() => {
+    const remaining = Math.max(0, Math.round((nextRefreshTime - Date.now()) / 1000));
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    document.getElementById('next-refresh').textContent =
+      `次回自動更新: ${m}分${s.toString().padStart(2,'0')}秒後`;
+    if (remaining === 0) clearInterval(countdownTimer);
+  }, 1000);
+}
+
+async function fetchTimetable(manual = false) {
+  const btn = document.getElementById('refresh-btn');
+  const icon = document.getElementById('refresh-icon');
+  btn.disabled = true;
+  btn.classList.add('spinning');
+  icon.id = 'refresh-icon';
+
+  setStatus('loading', 'スプレッドシートからデータを取得中...');
+
+  try {
+    const resp = await fetch(CSV_URL + '&t=' + Date.now(), { cache: 'no-store' });
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const text = await resp.text();
+    const rows = parseCSV(text);
+
+    const changes = detectChanges(previousData, rows);
+    const container = document.getElementById('timetable-container');
+    container.innerHTML = renderTable(rows, changes);
+    container.classList.add('fade-in');
+
+    if (changes.length > 0 && previousData !== null) {
+      const alert = document.getElementById('change-alert');
+      const detail = document.getElementById('change-detail');
+      alert.classList.add('visible');
+      detail.textContent = `${changes.length} 箇所の変更が検出されました。登録済みの方へ通知が送信されます。`;
+      if (Notification && Notification.permission === 'granted') {
+        new Notification('時間割変更通知', {
+          body: `水戸第一高校の時間割が${changes.length}箇所変更されました。`,
+          icon: ''
+        });
+      }
+    } else {
+      document.getElementById('change-alert').classList.remove('visible');
+    }
+
+    previousData = rows;
+    updateLastUpdated();
+    setStatus('ok', 'データ取得完了 — 正常に読み込みました');
+
+  } catch (err) {
+    console.error(err);
+    if (!previousData) {
+      document.getElementById('timetable-container').innerHTML = `
+        <div class="error-state">
+          <div class="error-title">⚠ データ取得エラー</div>
+          <div class="error-msg">${err.message}<br><br>スプレッドシートが公開設定になっているか確認してください。<br>または <a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/" target="_blank" style="color:var(--accent)">直接開く</a></div>
+        </div>`;
+    }
+    setStatus('error', 'データ取得に失敗しました — 前回のデータを表示中');
+  }
+
+  btn.disabled = false;
+  btn.classList.remove('spinning');
+
+  clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(() => fetchTimetable(), REFRESH_INTERVAL);
+  startCountdown();
+}
+
+function requestNotificationPermission() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  fetchTimetable();
+  requestNotificationPermission();
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    clearTimeout(refreshTimer);
+    fetchTimetable();
+  }
+});
+</script>
+</body>
+</html>
