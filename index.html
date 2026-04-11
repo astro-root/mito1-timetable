@@ -247,7 +247,7 @@ a:hover { color: var(--accent-light); text-decoration: none; }
       <div>
         <div class="school-badge"><span class="live-dot"></span>自動検出・通知サービス稼働中</div>
         <div class="school-title">水戸第一高等学校・附属中学校</div>
-        <div class="school-sub">MITO DAIICHI HIGH SCHOOL — TIMETABLE NOTIFICATION</div>
+        <div class="school-sub">MITO FIRST HIGH SCHOOL — TIMETABLE NOTIFICATION</div>
       </div>
       <div class="header-right">
         <span class="updated-chip" id="updated-chip">取得中…</span>
@@ -388,30 +388,25 @@ let refreshTimer = null;
 let countdownTimer = null;
 let nextAt = null;
 let isFetching = false;
-
 (function initTheme() {
   const saved = localStorage.getItem('theme');
   const pref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
   applyTheme(saved || pref, false);
 })();
-
 function applyTheme(t, save) {
   document.documentElement.setAttribute('data-theme', t);
   document.getElementById('theme-icon').textContent = t === 'dark' ? '🌙' : '☀️';
   if (save) localStorage.setItem('theme', t);
 }
-
 function toggleTheme() {
   const cur = document.documentElement.getAttribute('data-theme');
   applyTheme(cur === 'dark' ? 'light' : 'dark', true);
 }
-
 function setStatus(state, label, msg) {
   document.getElementById('status-pill').className = 'status-pill ' + state;
   document.getElementById('status-label').textContent = label;
   document.getElementById('status-message').textContent = msg;
 }
-
 function startCountdown() {
   clearInterval(countdownTimer);
   nextAt = Date.now() + REFRESH_MS;
@@ -423,7 +418,26 @@ function startCountdown() {
     if (rem === 0) clearInterval(countdownTimer);
   }, 1000);
 }
-
+function parseCSV(raw) {
+  const rows = [];
+  const lines = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+  for (const line of lines) {
+    if (!line.trim()) continue;
+    const cells = [];
+    let inQ = false, cell = '';
+    for (let i = 0; i < line.length; i++) {
+      const c = line[i];
+      if (c === '"' && !inQ) { inQ = true; }
+      else if (c === '"' && inQ && line[i+1] === '"') { cell += '"'; i++; }
+      else if (c === '"' && inQ) { inQ = false; }
+      else if (c === ',' && !inQ) { cells.push(cell.trim()); cell = ''; }
+      else { cell += c; }
+    }
+    cells.push(cell.trim());
+    rows.push(cells);
+  }
+  return rows;
+}
 function detectChanges(a, b) {
   if (!a) return [];
   const out = [];
@@ -436,11 +450,9 @@ function detectChanges(a, b) {
   }
   return out;
 }
-
 function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
-
 function renderTable(rows, changed) {
   if (!rows || rows.length === 0) return stateHtml('error','データなし','スプレッドシートにデータが見つかりませんでした。');
   const cs = new Set(changed.map(x => `${x.r}-${x.c}`));
@@ -456,7 +468,6 @@ function renderTable(rows, changed) {
   }
   return h + '</tbody></table>';
 }
-
 function stateHtml(type, title, desc, link) {
   const icon = type === 'error'
     ? `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
@@ -464,82 +475,100 @@ function stateHtml(type, title, desc, link) {
   const lnk = link ? `<br><br><a href="${link}" target="_blank" rel="noopener" style="color:var(--accent); font-weight:600;">→ スプレッドシートを直接開く</a>` : '';
   return `<div class="table-state">${icon}<div class="table-state-title">${esc(title)}</div><div class="table-state-desc">${esc(desc)}${lnk}</div></div>`;
 }
-
+function fetchViaGviz() {
+  return new Promise((resolve, reject) => {
+    const cb = '_gviz_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    const script = document.createElement('script');
+    const timer = setTimeout(() => { cleanup(); reject(new Error('gviz timeout')); }, 15000);
+    function cleanup() {
+      clearTimeout(timer);
+      try { delete window[cb]; } catch(e) {}
+      if (script.parentNode) script.parentNode.removeChild(script);
+    }
+    window[cb] = function(resp) {
+      cleanup();
+      try {
+        if (!resp || resp.status !== 'ok') { reject(new Error('gviz status: ' + (resp&&resp.status))); return; }
+        const tbl = resp.table;
+        const rows = [];
+        rows.push(tbl.cols.map(c => c.label || ''));
+        for (const row of (tbl.rows || [])) {
+          rows.push((row.c || []).map(cell => (cell && cell.v != null) ? String(cell.v) : ''));
+        }
+        resolve(rows);
+      } catch(e) { reject(e); }
+    };
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json;responseHandler:${cb}&gid=${GID}&t=${Date.now()}`;
+    script.src = url;
+    script.onerror = () => { cleanup(); reject(new Error('gviz load failed')); };
+    document.head.appendChild(script);
+  });
+}
+async function fetchViaCSV() {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}&t=${Date.now()}`;
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+  const text = await resp.text();
+  if (!text.trim()) throw new Error('empty response');
+  return parseCSV(text);
+}
 async function fetchTimetable() {
   if (isFetching) return;
   isFetching = true;
   setStatus('loading', '取得中', 'スプレッドシートへ接続しています…');
-  
   if (!prevRows) {
     document.getElementById('timetable').innerHTML = stateHtml('loading', 'データ取得中', 'スプレッドシートへ接続しています…');
   }
-
+  let rows = null;
+  let method = '';
   try {
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID}&t=${Date.now()}`;
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-    
-    let text = await response.text();
-    const start = text.indexOf('{');
-    const end = text.lastIndexOf('}');
-    if (start === -1 || end === -1) throw new Error('Invalid data format received');
-    
-    const data = JSON.parse(text.substring(start, end + 1));
-    
-    if (data.status === 'error') {
-      throw new Error(data.errors?.[0]?.message || 'Google Sheets API Error');
+    rows = await fetchViaGviz();
+    method = 'gviz/tq (JSONP)';
+  } catch (e1) {
+    try {
+      rows = await fetchViaCSV();
+      method = 'CSV Fallback';
+    } catch (e2) {
+      isFetching = false;
+      if (!prevRows) {
+        document.getElementById('timetable').innerHTML = stateHtml(
+          'error',
+          'データ取得エラー',
+          'スプレッドシートへの接続に失敗しました。公開設定を確認してください。',
+          `https://docs.google.com/spreadsheets/d/${SHEET_ID}/`
+        );
+      }
+      setStatus('error', 'エラー', '接続失敗: ' + e2.message);
+      document.getElementById('updated-chip').textContent = '取得失敗';
+      scheduleNext();
+      return;
     }
-    
-    const tbl = data.table;
-    const rows = [];
-    rows.push(tbl.cols.map(c => c ? (c.label || '') : ''));
-    for (const row of (tbl.rows || [])) {
-      rows.push((row.c || []).map(cell => (cell && cell.v != null) ? String(cell.v) : ''));
-    }
-
-    const changes = detectChanges(prevRows, rows);
-    const el = document.getElementById('timetable');
-    el.innerHTML = renderTable(rows, changes);
-    el.classList.add('fade-in');
-    setTimeout(() => el.classList.remove('fade-in'), 500);
-
-    if (changes.length > 0 && prevRows !== null) {
-      document.getElementById('change-alert').classList.add('show');
-      document.getElementById('change-desc').textContent = `${changes.length} 箇所の変更が検出されました。登録済みの方へ通知が送信されます。`;
-      tryBrowserNotify(changes.length);
-    } else {
-      document.getElementById('change-alert').classList.remove('show');
-    }
-
-    prevRows = rows;
-    const now = new Date();
-    const ts = now.toLocaleDateString('ja-JP') + ' ' + now.toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'});
-    document.getElementById('updated-chip').textContent = ts + ' 更新';
-    setStatus('ok', '正常', `取得完了`);
-
-  } catch (e) {
-    if (!prevRows) {
-      document.getElementById('timetable').innerHTML = stateHtml(
-        'error',
-        'データ取得エラー',
-        'スプレッドシートへの接続に失敗しました。公開設定を確認してください。',
-        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/`
-      );
-    }
-    setStatus('error', 'エラー', '接続失敗: ' + e.message);
-    document.getElementById('updated-chip').textContent = '取得失敗';
-  } finally {
-    isFetching = false;
-    scheduleNext();
   }
+  const changes = detectChanges(prevRows, rows);
+  const el = document.getElementById('timetable');
+  el.innerHTML = renderTable(rows, changes);
+  el.classList.add('fade-in');
+  setTimeout(() => el.classList.remove('fade-in'), 500);
+  if (changes.length > 0 && prevRows !== null) {
+    document.getElementById('change-alert').classList.add('show');
+    document.getElementById('change-desc').textContent = `${changes.length} 箇所の変更が検出されました。登録済みの方へ通知が送信されます。`;
+    tryBrowserNotify(changes.length);
+  } else {
+    document.getElementById('change-alert').classList.remove('show');
+  }
+  prevRows = rows;
+  const now = new Date();
+  const ts = now.toLocaleDateString('ja-JP') + ' ' + now.toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'});
+  document.getElementById('updated-chip').textContent = ts + ' 更新';
+  setStatus('ok', '正常', `取得完了`);
+  isFetching = false;
+  scheduleNext();
 }
-
 function scheduleNext() {
   clearTimeout(refreshTimer);
   refreshTimer = setTimeout(fetchTimetable, REFRESH_MS);
   startCountdown();
 }
-
 function tryBrowserNotify(count) {
   if (!('Notification' in window)) return;
   const fire = () => new Notification('時間割変更通知', {
@@ -551,7 +580,6 @@ function tryBrowserNotify(count) {
     Notification.requestPermission().then(p => { if (p === 'granted') fire(); });
   }
 }
-
 function manualRefresh() {
   clearTimeout(refreshTimer);
   clearInterval(countdownTimer);
@@ -564,14 +592,12 @@ function manualRefresh() {
     btn.removeAttribute('disabled');
   });
 }
-
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible' && nextAt && Date.now() > nextAt) {
     clearTimeout(refreshTimer);
     fetchTimetable();
   }
 });
-
 fetchTimetable();
 </script>
 </body>
