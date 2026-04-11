@@ -4,60 +4,73 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>時間割通知 | 水戸第一高校・附属中学校</title>
+<meta name="description" content="水戸第一高等学校・附属中学校の時間割変更を自動検出し、通知するサービスです。">
+<meta name="keywords" content="水戸一高,時間割,附属中学校,自動通知">
+<meta property="og:title" content="時間割通知 | 水戸第一高校・附属中学校">
+<meta property="og:description" content="時間割変更の自動検出・通知サービス">
+<meta property="og:image" content="https://raw.githubusercontent.com/astro-root/mito1-timetable/main/mito1-mark.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="https://raw.githubusercontent.com/astro-root/mito1-timetable/main/mito1-mark.png">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/astro-root/mito1-timetable/main/mito1-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root { --transition-theme: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s; }
-
+:root {
+  --transition-theme: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
 [data-theme="dark"] {
-  --bg-base:       #0d1117;
-  --bg-surface:    #161b22;
-  --bg-elevated:   #1c2333;
-  --bg-hover:      #21273a;
-  --border:        #2a3444;
-  --border-strong: #3d4f6b;
-  --text-primary:  #e6edf3;
-  --text-secondary:#8b949e;
-  --text-muted:    #484f58;
-  --accent:        #c8a84b;
-  --accent-light:  #e8c86a;
-  --accent-dim:    rgba(200,168,75,0.12);
-  --accent-ring:   rgba(200,168,75,0.35);
-  --blue:          #58a6ff;
-  --blue-dim:      rgba(88,166,255,0.10);
-  --discord:       #5865f2;
-  --discord-dim:   rgba(88,101,242,0.10);
-  --red:           #f85149;
-  --red-dim:       rgba(248,81,73,0.10);
-  --green:         #3fb950;
-  --shadow-sm:     0 1px 3px rgba(0,0,0,0.4);
-  --shadow-md:     0 4px 16px rgba(0,0,0,0.5);
+  --bg-base: #0f172a;
+  --bg-surface: #1e293b;
+  --bg-elevated: #334155;
+  --bg-hover: #475569;
+  --border: #334155;
+  --border-strong: #475569;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent: #eab308;
+  --accent-light: #fde047;
+  --accent-dim: rgba(234, 179, 8, 0.15);
+  --accent-ring: rgba(234, 179, 8, 0.4);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59, 130, 246, 0.15);
+  --discord: #5865f2;
+  --discord-dim: rgba(88, 101, 242, 0.15);
+  --red: #ef4444;
+  --red-dim: rgba(239, 68, 68, 0.15);
+  --green: #22c55e;
+  --green-dim: rgba(34, 197, 94, 0.15);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.5);
 }
 [data-theme="light"] {
-  --bg-base:       #f5f6f8;
-  --bg-surface:    #ffffff;
-  --bg-elevated:   #f0f2f5;
-  --bg-hover:      #e8eaed;
-  --border:        #d0d7de;
-  --border-strong: #b0bbc8;
-  --text-primary:  #1a2030;
-  --text-secondary:#57606a;
-  --text-muted:    #a0aab8;
-  --accent:        #9a7c28;
-  --accent-light:  #b89030;
-  --accent-dim:    rgba(154,124,40,0.08);
-  --accent-ring:   rgba(154,124,40,0.30);
-  --blue:          #0969da;
-  --blue-dim:      rgba(9,105,218,0.08);
-  --discord:       #4752c4;
-  --discord-dim:   rgba(71,82,196,0.08);
-  --red:           #cf222e;
-  --red-dim:       rgba(207,34,46,0.08);
-  --green:         #1a7f37;
-  --shadow-sm:     0 1px 3px rgba(0,0,0,0.08);
-  --shadow-md:     0 4px 16px rgba(0,0,0,0.10);
+  --bg-base: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f1f5f9;
+  --bg-hover: #e2e8f0;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --accent: #ca8a04;
+  --accent-light: #a16207;
+  --accent-dim: rgba(202, 138, 4, 0.1);
+  --accent-ring: rgba(202, 138, 4, 0.3);
+  --blue: #2563eb;
+  --blue-dim: rgba(37, 99, 235, 0.1);
+  --discord: #4752c4;
+  --discord-dim: rgba(71, 82, 196, 0.1);
+  --red: #dc2626;
+  --red-dim: rgba(220, 38, 38, 0.1);
+  --green: #16a34a;
+  --green-dim: rgba(22, 163, 74, 0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
@@ -69,188 +82,166 @@ body {
   transition: var(--transition-theme);
   -webkit-font-smoothing: antialiased;
 }
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-/* LAYOUT */
-.page { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
-@media (min-width: 640px)  { .page { padding: 0 24px; } }
-@media (min-width: 1024px) { .page { padding: 0 40px; } }
-
-/* HEADER */
-.site-header { padding: 28px 0 20px; border-bottom: 1px solid var(--border); transition: var(--transition-theme); }
-.header-row  { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-
-.school-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--accent-dim); border: 1px solid var(--accent-ring);
-  border-radius: 20px; padding: 3px 12px;
-  font-size: 11px; color: var(--accent);
-  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em;
-  margin-bottom: 10px;
-}
-.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-.school-title { font-family: 'Noto Serif JP', serif; font-size: clamp(17px, 4vw, 25px); font-weight: 700; color: var(--text-primary); letter-spacing: 0.04em; line-height: 1.3; }
-.school-sub   { margin-top: 4px; font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em; }
-
-.header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
-
-/* THEME TOGGLE */
-.theme-toggle {
-  position: relative; width: 52px; height: 28px;
-  background: var(--bg-elevated); border: 1px solid var(--border-strong);
-  border-radius: 14px; cursor: pointer;
-  transition: background 0.3s, border-color 0.3s; flex-shrink: 0;
-}
-.theme-toggle:hover { border-color: var(--accent); }
-.theme-toggle-thumb {
-  position: absolute; top: 3px; left: 3px;
-  width: 20px; height: 20px; border-radius: 50%;
-  background: var(--accent);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px;
-  transition: transform 0.3s cubic-bezier(.4,0,.2,1); user-select: none;
-}
-[data-theme="light"] .theme-toggle-thumb { transform: translateX(24px); }
-
-/* BUTTONS */
-.btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 7px 16px; border-radius: 8px;
-  font-size: 13px; font-family: 'Noto Sans JP', sans-serif; font-weight: 500;
-  cursor: pointer; border: none; text-decoration: none;
-  transition: all 0.2s; white-space: nowrap; line-height: 1;
-}
-.btn-ghost   { background: var(--bg-elevated); color: var(--text-secondary); border: 1px solid var(--border); }
-.btn-ghost:hover { background: var(--bg-hover); color: var(--text-primary); border-color: var(--border-strong); text-decoration: none; }
-.btn-primary { background: var(--accent); color: #000; font-weight: 600; }
-.btn-primary:hover { background: var(--accent-light); text-decoration: none; }
-.btn-danger  { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
-.btn-danger:hover { background: var(--red); color: #fff; text-decoration: none; }
-.btn-discord { background: var(--discord); color: #fff; }
-.btn-discord:hover { background: #4752c4; text-decoration: none; }
-.btn-sm { padding: 5px 12px; font-size: 12px; }
-.btn[disabled] { opacity: 0.5; pointer-events: none; }
-.spin { animation: rotate 0.8s linear infinite; }
-@keyframes rotate { to { transform: rotate(360deg); } }
-
-/* STATUS BAR */
-.status-bar {
-  display: flex; align-items: center; gap: 8px;
-  padding: 10px 16px; background: var(--bg-surface);
-  border: 1px solid var(--border); border-radius: 10px;
-  margin: 18px 0; font-size: 12px;
-  flex-wrap: wrap; row-gap: 6px;
+a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--accent-light); text-decoration: none; }
+.page { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 640px) { .page { padding: 0 32px; } }
+@media (min-width: 1024px) { .page { padding: 0 48px; } }
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(var(--bg-base), 0.8);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  padding: 24px 0 20px; border-bottom: 1px solid var(--border);
   transition: var(--transition-theme);
 }
-.status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 20px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; }
-.status-pill.ok      { background: rgba(63,185,80,0.12); color: var(--green); }
-.status-pill.error   { background: var(--red-dim); color: var(--red); }
-.status-pill.loading { background: var(--blue-dim); color: var(--blue); }
-.status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-.status-pill.ok .status-dot { animation: blink 2s infinite; }
-.status-message { color: var(--text-secondary); flex: 1; min-width: 100px; }
-.countdown { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); white-space: nowrap; }
-
-/* CHANGE ALERT */
-.change-alert {
-  display: none; padding: 14px 18px;
+.header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.school-badge {
+  display: inline-flex; align-items: center; gap: 8px;
   background: var(--accent-dim); border: 1px solid var(--accent-ring);
-  border-left: 4px solid var(--accent); border-radius: 10px;
-  margin-bottom: 18px; gap: 12px; align-items: flex-start;
-  animation: slideDown 0.35s ease;
+  border-radius: 999px; padding: 4px 14px;
+  font-size: 12px; color: var(--accent); font-weight: 600;
+  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.school-title { font-family: 'Noto Serif JP', serif; font-size: clamp(20px, 5vw, 28px); font-weight: 700; color: var(--text-primary); letter-spacing: 0.05em; line-height: 1.4; }
+.school-sub { margin-top: 6px; font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; }
+.header-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
+.theme-toggle {
+  position: relative; width: 56px; height: 30px;
+  background: var(--bg-elevated); border: 1px solid var(--border-strong);
+  border-radius: 15px; cursor: pointer;
+  transition: var(--transition-theme); flex-shrink: 0;
+}
+.theme-toggle:hover { border-color: var(--accent); box-shadow: 0 0 8px var(--accent-dim); }
+.theme-toggle-thumb {
+  position: absolute; top: 3px; left: 3px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--bg-surface); box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; transition: transform 0.4s cubic-bezier(.4,0,.2,1); user-select: none;
+}
+[data-theme="light"] .theme-toggle-thumb { transform: translateX(26px); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 20px; border-radius: 10px;
+  font-size: 14px; font-weight: 600; font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer; border: none; text-decoration: none;
+  transition: all 0.2s ease; white-space: nowrap; line-height: 1.2;
+}
+.btn:active { transform: scale(0.98); }
+.btn-ghost { background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-strong); }
+.btn-ghost:hover { background: var(--bg-hover); border-color: var(--accent); }
+.btn-primary { background: var(--accent); color: var(--bg-base); }
+.btn-primary:hover { background: var(--accent-light); box-shadow: 0 4px 12px var(--accent-dim); }
+.btn-danger { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
+.btn-danger:hover { background: var(--red); color: #fff; }
+.btn-discord { background: var(--discord); color: #fff; }
+.btn-discord:hover { background: #4752c4; box-shadow: 0 4px 12px var(--discord-dim); }
+.btn-sm { padding: 6px 14px; font-size: 13px; border-radius: 8px; }
+.btn[disabled] { opacity: 0.6; pointer-events: none; }
+.spin { animation: rotate 1s linear infinite; }
+@keyframes rotate { to { transform: rotate(360deg); } }
+.status-bar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 20px; background: var(--bg-surface);
+  border: 1px solid var(--border); border-radius: 12px;
+  margin: 24px 0; font-size: 13px;
+  flex-wrap: wrap; box-shadow: var(--shadow-sm);
+  transition: var(--transition-theme);
+}
+.status-pill { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; }
+.status-pill.ok { background: var(--green-dim); color: var(--green); }
+.status-pill.error { background: var(--red-dim); color: var(--red); }
+.status-pill.loading { background: var(--blue-dim); color: var(--blue); }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.status-pill.ok .status-dot { animation: blink 2s infinite; }
+.status-message { color: var(--text-secondary); flex: 1; min-width: 150px; font-weight: 500; }
+.countdown { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+.change-alert {
+  display: none; padding: 18px 24px;
+  background: var(--accent-dim); border: 1px solid var(--accent-ring);
+  border-left: 6px solid var(--accent); border-radius: 12px;
+  margin-bottom: 24px; gap: 16px; align-items: flex-start;
+  animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-md);
 }
 .change-alert.show { display: flex; }
-@keyframes slideDown { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
-.alert-icon  { font-size: 18px; margin-top: 1px; flex-shrink: 0; }
-.alert-title { font-weight: 600; font-size: 13px; color: var(--accent-light); }
-.alert-desc  { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
-
-/* SECTION HEAD */
-.section-head { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; }
-.section-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--text-muted); text-transform: uppercase; white-space: nowrap; }
-.section-line { flex: 1; height: 1px; background: var(--border); }
-
-/* TIMETABLE */
-.table-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition-theme); }
-.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.table-scroll::-webkit-scrollbar { height: 4px; }
-.table-scroll::-webkit-scrollbar-track { background: var(--bg-elevated); }
-.table-scroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
-
-#timetable table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 480px; }
+@keyframes slideDown { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+.alert-icon { font-size: 22px; margin-top: 2px; flex-shrink: 0; }
+.alert-title { font-weight: 700; font-size: 15px; color: var(--accent-light); margin-bottom: 4px; }
+.alert-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+.section-head { display: flex; align-items: center; gap: 16px; margin: 40px 0 20px; }
+.section-label { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; white-space: nowrap; }
+.section-line { flex: 1; height: 1px; background: var(--border-strong); }
+.table-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-md); transition: var(--transition-theme); }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
+.table-scroll::-webkit-scrollbar { height: 6px; }
+.table-scroll::-webkit-scrollbar-track { background: var(--bg-base); }
+.table-scroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+#timetable table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; }
 #timetable thead th {
   background: var(--bg-elevated); color: var(--text-secondary);
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
-  padding: 11px 14px; text-align: center;
-  border-bottom: 1px solid var(--border-strong); white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.05em;
+  padding: 14px 18px; text-align: center;
+  border-bottom: 2px solid var(--border-strong); white-space: nowrap;
   position: sticky; top: 0; z-index: 2;
 }
-#timetable thead th:first-child { text-align: left; border-right: 1px solid var(--border); }
-#timetable tbody tr { transition: background 0.15s; }
-#timetable tbody tr:hover td { background: var(--bg-hover); }
-#timetable tbody tr:hover td:first-child { background: var(--bg-elevated); }
-#timetable tbody td { padding: 10px 14px; text-align: center; border-bottom: 1px solid var(--border); color: var(--text-primary); font-size: 13px; line-height: 1.5; vertical-align: middle; transition: background 0.15s; }
-#timetable tbody td:first-child { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); text-align: left; border-right: 1px solid var(--border); background: var(--bg-elevated); white-space: nowrap; font-weight: 500; }
-#timetable tbody tr:last-child td { border-bottom: none; }
-#timetable tbody td.changed { background: var(--accent-dim); color: var(--accent-light); font-weight: 500; position: relative; }
-#timetable tbody td.changed::before { content:''; position:absolute; top:0;left:0;right:0; height:2px; background:var(--accent); }
-
-/* TABLE STATES */
-.table-state { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:60px 24px; gap:14px; color:var(--text-muted); text-align:center; }
-.spinner-svg { animation: rotate 0.9s linear infinite; color: var(--accent); }
-.table-state-title { font-size:14px; font-weight:600; color:var(--text-secondary); }
-.table-state-desc  { font-size:12px; font-family:'JetBrains Mono',monospace; max-width:400px; line-height:1.8; }
-
-/* CARDS */
-.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; }
-.card { background:var(--bg-surface); border:1px solid var(--border); border-radius:12px; padding:20px; transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s,background 0.3s; display:flex; flex-direction:column; }
-.card:hover { border-color:var(--border-strong); box-shadow:var(--shadow-md); transform:translateY(-2px); }
-.card-icon-wrap { width:40px;height:40px; border-radius:10px; background:var(--accent-dim); border:1px solid var(--accent-ring); display:flex;align-items:center;justify-content:center; font-size:18px; margin-bottom:14px; flex-shrink:0; }
-.card.card-discord .card-icon-wrap { background:var(--discord-dim); border-color:rgba(88,101,242,0.3); }
-.card-title { font-size:14px; font-weight:700; color:var(--text-primary); margin-bottom:6px; }
-.card-desc  { font-size:12px; color:var(--text-secondary); line-height:1.7; flex:1; margin-bottom:16px; }
-
-/* INFO */
-.info-card { background:var(--bg-surface); border:1px solid var(--border); border-radius:12px; padding:22px; transition:var(--transition-theme); }
-.info-card-title { font-family:'Noto Serif JP',serif; font-size:15px; font-weight:600; color:var(--text-primary); display:flex;align-items:center;gap:8px; margin-bottom:16px; }
-.info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
-.info-item { display:flex; align-items:flex-start; gap:12px; }
-.info-item-icon { width:34px;height:34px; border-radius:8px; background:var(--bg-elevated); border:1px solid var(--border); display:flex;align-items:center;justify-content:center; font-size:15px; flex-shrink:0; margin-top:1px; }
-.info-label { font-size:11px; font-weight:600; color:var(--text-muted); font-family:'JetBrains Mono',monospace; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:3px; }
-.info-text  { font-size:12px; color:var(--text-secondary); line-height:1.7; }
-.info-text a { color:var(--accent); }
-
-/* FOOTER */
-.site-footer { border-top:1px solid var(--border); padding:24px 0 32px; margin-top:36px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; transition:var(--transition-theme); }
-.footer-text { font-size:12px; color:var(--text-secondary); line-height:1.8; }
-.footer-text a { color:var(--text-secondary); border-bottom:1px solid var(--border); padding-bottom:1px; }
-.footer-text a:hover { color:var(--accent); border-color:var(--accent); text-decoration:none; }
-.footer-mono { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); letter-spacing:0.08em; text-align:right; line-height:1.8; }
-
-/* MISC */
-.updated-chip { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); background:var(--bg-elevated); border:1px solid var(--border); border-radius:6px; padding:3px 10px; white-space:nowrap; }
-.fade-in { animation: fadeIn 0.4s ease forwards; }
-@keyframes fadeIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
-
-/* RESPONSIVE */
+#timetable thead th:first-child { text-align: left; border-right: 1px solid var(--border); position: sticky; left: 0; z-index: 3; }
+#timetable tbody tr { transition: background 0.2s ease; border-bottom: 1px solid var(--border); }
+#timetable tbody tr:hover { background: var(--bg-hover); }
+#timetable tbody td { padding: 12px 18px; text-align: center; color: var(--text-primary); vertical-align: middle; transition: background 0.2s ease; }
+#timetable tbody td:first-child {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-secondary);
+  text-align: left; border-right: 1px solid var(--border); background: var(--bg-elevated);
+  white-space: nowrap; font-weight: 600; position: sticky; left: 0; z-index: 1;
+}
+#timetable tbody tr:last-child { border-bottom: none; }
+#timetable tbody td.changed { background: var(--accent-dim); color: var(--accent-light); font-weight: 700; position: relative; }
+#timetable tbody td.changed::after { content:''; position:absolute; inset:0; border: 2px solid var(--accent); pointer-events: none; }
+.table-state { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:80px 24px; gap:16px; color:var(--text-muted); text-align:center; }
+.spinner-svg { animation: rotate 1.2s linear infinite; color: var(--accent); }
+.table-state-title { font-size:16px; font-weight:700; color:var(--text-primary); }
+.table-state-desc { font-size:14px; font-family:'JetBrains Mono',monospace; max-width:450px; line-height:1.6; color:var(--text-secondary); }
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+.card { background:var(--bg-surface); border:1px solid var(--border); border-radius:16px; padding:24px; transition:all 0.3s ease; display:flex; flex-direction:column; box-shadow:var(--shadow-sm); }
+.card:hover { border-color:var(--border-strong); box-shadow:var(--shadow-lg); transform:translateY(-4px); }
+.card-icon-wrap { width:48px;height:48px; border-radius:12px; background:var(--accent-dim); border:1px solid var(--accent-ring); display:flex;align-items:center;justify-content:center; font-size:22px; margin-bottom:18px; flex-shrink:0; transition: transform 0.3s ease; }
+.card:hover .card-icon-wrap { transform: scale(1.1) rotate(5deg); }
+.card.card-discord .card-icon-wrap { background:var(--discord-dim); border-color:rgba(88,101,242,0.4); }
+.card-title { font-size:16px; font-weight:700; color:var(--text-primary); margin-bottom:10px; }
+.card-desc { font-size:14px; color:var(--text-secondary); line-height:1.6; flex:1; margin-bottom:20px; }
+.info-card { background:var(--bg-surface); border:1px solid var(--border); border-radius:16px; padding:28px; transition:var(--transition-theme); box-shadow:var(--shadow-sm); }
+.info-card-title { font-family:'Noto Serif JP',serif; font-size:18px; font-weight:700; color:var(--text-primary); display:flex;align-items:center;gap:10px; margin-bottom:24px; }
+.info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; }
+.info-item { display:flex; align-items:flex-start; gap:16px; }
+.info-item-icon { width:40px;height:40px; border-radius:10px; background:var(--bg-elevated); border:1px solid var(--border-strong); display:flex;align-items:center;justify-content:center; font-size:18px; flex-shrink:0; margin-top:2px; }
+.info-label { font-size:12px; font-weight:700; color:var(--text-primary); font-family:'JetBrains Mono',monospace; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:6px; }
+.info-text { font-size:13px; color:var(--text-secondary); line-height:1.6; }
+.site-footer { border-top:1px solid var(--border); padding:32px 0 40px; margin-top:48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; transition:var(--transition-theme); }
+.footer-text { font-size:13px; color:var(--text-secondary); line-height:1.6; }
+.footer-text a { color:var(--text-primary); border-bottom:1px solid var(--border-strong); padding-bottom:2px; }
+.footer-mono { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-muted); letter-spacing:0.1em; text-align:right; line-height:1.6; }
+.updated-chip { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-primary); background:var(--bg-elevated); border:1px solid var(--border-strong); border-radius:8px; padding:4px 12px; white-space:nowrap; font-weight: 600; }
+.fade-in { animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+@media (max-width:768px) {
+  .header-right { width:100%; justify-content:space-between; margin-top: 10px; }
+  .countdown { width:100%; margin-left:0; text-align: left; margin-top: 8px; }
+  .table-state { padding: 40px 16px; }
+}
 @media (max-width:480px) {
-  .site-header { padding:18px 0 14px; }
-  .header-right { width:100%; justify-content:flex-end; }
-  .countdown { width:100%; margin-left:0; }
-  .cards { grid-template-columns:1fr; }
-  .info-grid { grid-template-columns:1fr; }
+  .site-header { padding: 16px 0; }
+  .cards, .info-grid { grid-template-columns:1fr; }
   .site-footer { flex-direction:column; align-items:flex-start; }
   .footer-mono { text-align:left; }
+  .school-title { font-size: 18px; }
 }
 </style>
 </head>
 <body>
 <div class="page">
-
-  <!-- HEADER -->
   <header class="site-header">
     <div class="header-row">
       <div>
@@ -261,7 +252,7 @@ a:hover { text-decoration: underline; }
       <div class="header-right">
         <span class="updated-chip" id="updated-chip">取得中…</span>
         <button class="btn btn-ghost btn-sm" id="refresh-btn" onclick="manualRefresh()">
-          <svg id="refresh-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg id="refresh-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
             <path d="M21 3v5h-5"/>
             <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
@@ -275,8 +266,6 @@ a:hover { text-decoration: underline; }
       </div>
     </div>
   </header>
-
-  <!-- STATUS BAR -->
   <div class="status-bar">
     <div class="status-pill loading" id="status-pill">
       <span class="status-dot"></span>
@@ -285,8 +274,6 @@ a:hover { text-decoration: underline; }
     <span class="status-message" id="status-message">スプレッドシートからデータを読み込んでいます…</span>
     <span class="countdown" id="countdown">次回自動更新: —</span>
   </div>
-
-  <!-- CHANGE ALERT -->
   <div class="change-alert" id="change-alert">
     <span class="alert-icon">⚠️</span>
     <div>
@@ -294,8 +281,6 @@ a:hover { text-decoration: underline; }
       <div class="alert-desc" id="change-desc">前回の取得から変更があります。登録済みの方にはメール・Discordで通知が送信されます。</div>
     </div>
   </div>
-
-  <!-- TIMETABLE -->
   <div class="section-head">
     <span class="section-label">時間割</span>
     <div class="section-line"></div>
@@ -305,7 +290,7 @@ a:hover { text-decoration: underline; }
     <div class="table-scroll">
       <div id="timetable">
         <div class="table-state">
-          <svg class="spinner-svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <svg class="spinner-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
           </svg>
           <div class="table-state-title">データ取得中</div>
@@ -314,9 +299,7 @@ a:hover { text-decoration: underline; }
       </div>
     </div>
   </div>
-
-  <!-- NOTIFICATION CARDS -->
-  <div class="section-head" style="margin-top:36px;">
+  <div class="section-head" style="margin-top:48px;">
     <span class="section-label">通知設定</span>
     <div class="section-line"></div>
     <span class="section-label">NOTIFICATION</span>
@@ -327,7 +310,7 @@ a:hover { text-decoration: underline; }
       <div class="card-title">メール通知を登録</div>
       <div class="card-desc">時間割の変更が検出された際、登録メールアドレスへ自動通知します。</div>
       <a class="btn btn-primary" href="https://forms.gle/mzY3XEafypk2vgZr5" target="_blank" rel="noopener">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         通知登録フォーム
       </a>
     </div>
@@ -336,7 +319,7 @@ a:hover { text-decoration: underline; }
       <div class="card-title">メール通知を解除</div>
       <div class="card-desc">通知の受信を停止したい場合は、こちらのフォームから解除できます。</div>
       <a class="btn btn-danger" href="https://forms.gle/gDsqGesMZavUwSpu7" target="_blank" rel="noopener">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
         通知解除フォーム
       </a>
     </div>
@@ -345,14 +328,12 @@ a:hover { text-decoration: underline; }
       <div class="card-title">Discord で通知を受け取る</div>
       <div class="card-desc">Discordサーバーに参加するとリアルタイムで変更通知を受け取れます。</div>
       <a class="btn btn-discord" href="https://discord.gg/zU9URUeCRq" target="_blank" rel="noopener">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.8 19.8 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.8 19.8 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
         Discord に参加
       </a>
     </div>
   </div>
-
-  <!-- ABOUT -->
-  <div class="section-head" style="margin-top:36px;">
+  <div class="section-head" style="margin-top:48px;">
     <span class="section-label">このサービスについて</span>
     <div class="section-line"></div>
     <span class="section-label">ABOUT</span>
@@ -390,8 +371,6 @@ a:hover { text-decoration: underline; }
       </div>
     </div>
   </div>
-
-  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-text">
       ご不明な点・ご要望は開発者までお気軽にどうぞ<br>
@@ -399,63 +378,48 @@ a:hover { text-decoration: underline; }
     </div>
     <div class="footer-mono">POWERED BY GOOGLE APPS SCRIPT<br>© ASTRO-ROOT DEVELOPMENT</div>
   </footer>
-
 </div>
-
 <script>
-/* ═══════════ CONFIG ═══════════ */
-const SHEET_ID   = '1fdSGqT1s2kit91TcQV_mjcuvOawGAU6JZ_5N684bH3U';
-const GID        = '0';
+const SHEET_ID = '1fdSGqT1s2kit91TcQV_mjcuvOawGAU6JZ_5N684bH3U';
+const GID = '0';
 const REFRESH_MS = 5 * 60 * 1000;
-
-/* ═══════════ STATE ═══════════ */
-let prevRows       = null;
-let refreshTimer   = null;
+let prevRows = null;
+let refreshTimer = null;
 let countdownTimer = null;
-let nextAt         = null;
-let isFetching     = false;
-
-/* ═══════════ THEME ═══════════ */
+let nextAt = null;
+let isFetching = false;
 (function initTheme() {
   const saved = localStorage.getItem('theme');
-  const pref  = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  const pref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
   applyTheme(saved || pref, false);
 })();
-
 function applyTheme(t, save) {
   document.documentElement.setAttribute('data-theme', t);
   document.getElementById('theme-icon').textContent = t === 'dark' ? '🌙' : '☀️';
   if (save) localStorage.setItem('theme', t);
 }
-
 function toggleTheme() {
   const cur = document.documentElement.getAttribute('data-theme');
   applyTheme(cur === 'dark' ? 'light' : 'dark', true);
 }
-
-/* ═══════════ STATUS ═══════════ */
 function setStatus(state, label, msg) {
   document.getElementById('status-pill').className = 'status-pill ' + state;
-  document.getElementById('status-label').textContent   = label;
+  document.getElementById('status-label').textContent = label;
   document.getElementById('status-message').textContent = msg;
 }
-
-/* ═══════════ COUNTDOWN ═══════════ */
 function startCountdown() {
   clearInterval(countdownTimer);
   nextAt = Date.now() + REFRESH_MS;
   countdownTimer = setInterval(() => {
     const rem = Math.max(0, Math.floor((nextAt - Date.now()) / 1000));
-    const m   = Math.floor(rem / 60);
-    const s   = String(rem % 60).padStart(2, '0');
+    const m = Math.floor(rem / 60);
+    const s = String(rem % 60).padStart(2, '0');
     document.getElementById('countdown').textContent = rem > 0 ? `次回自動更新: ${m}分${s}秒後` : '更新中…';
     if (rem === 0) clearInterval(countdownTimer);
   }, 1000);
 }
-
-/* ═══════════ CSV PARSER ═══════════ */
 function parseCSV(raw) {
-  const rows  = [];
+  const rows = [];
   const lines = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
   for (const line of lines) {
     if (!line.trim()) continue;
@@ -463,22 +427,20 @@ function parseCSV(raw) {
     let inQ = false, cell = '';
     for (let i = 0; i < line.length; i++) {
       const c = line[i];
-      if (c === '"' && !inQ)                         { inQ = true; }
+      if (c === '"' && !inQ) { inQ = true; }
       else if (c === '"' && inQ && line[i+1] === '"') { cell += '"'; i++; }
-      else if (c === '"' && inQ)                     { inQ = false; }
-      else if (c === ',' && !inQ)                    { cells.push(cell.trim()); cell = ''; }
-      else                                            { cell += c; }
+      else if (c === '"' && inQ) { inQ = false; }
+      else if (c === ',' && !inQ) { cells.push(cell.trim()); cell = ''; }
+      else { cell += c; }
     }
     cells.push(cell.trim());
     rows.push(cells);
   }
   return rows;
 }
-
-/* ═══════════ CHANGE DETECTION ═══════════ */
 function detectChanges(a, b) {
   if (!a) return [];
-  const out  = [];
+  const out = [];
   const maxR = Math.max(a.length, b.length);
   for (let r = 1; r < maxR; r++) {
     const maxC = Math.max((a[r]||[]).length, (b[r]||[]).length);
@@ -488,13 +450,9 @@ function detectChanges(a, b) {
   }
   return out;
 }
-
-/* ═══════════ HTML ESCAPE ═══════════ */
 function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
-
-/* ═══════════ RENDER ═══════════ */
 function renderTable(rows, changed) {
   if (!rows || rows.length === 0) return stateHtml('error','データなし','スプレッドシートにデータが見つかりませんでした。');
   const cs = new Set(changed.map(x => `${x.r}-${x.c}`));
@@ -510,97 +468,63 @@ function renderTable(rows, changed) {
   }
   return h + '</tbody></table>';
 }
-
 function stateHtml(type, title, desc, link) {
   const icon = type === 'error'
-    ? `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
-    : `<svg class="spinner-svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`;
-  const lnk = link ? `<br><br><a href="${link}" target="_blank" rel="noopener" style="color:var(--accent)">→ スプレッドシートを直接開く</a>` : '';
+    ? `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
+    : `<svg class="spinner-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`;
+  const lnk = link ? `<br><br><a href="${link}" target="_blank" rel="noopener" style="color:var(--accent); font-weight:600;">→ スプレッドシートを直接開く</a>` : '';
   return `<div class="table-state">${icon}<div class="table-state-title">${esc(title)}</div><div class="table-state-desc">${esc(desc)}${lnk}</div></div>`;
 }
-
-/* ═══════════════════════════════════════════════════
-   FETCH STRATEGY 1 — gviz/tq JSONP
-   公開スプレッドシートならCORSなしで取得できる
-   最も確実な方法
-═══════════════════════════════════════════════════ */
-function fetchViaGviz() {
-  return new Promise((resolve, reject) => {
-    const cb     = '_gviz_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    const script = document.createElement('script');
-    const timer  = setTimeout(() => { cleanup(); reject(new Error('gviz timeout')); }, 15000);
-
-    function cleanup() {
-      clearTimeout(timer);
-      try { delete window[cb]; } catch(e) {}
-      if (script.parentNode) script.parentNode.removeChild(script);
-    }
-
-    window[cb] = function(resp) {
-      cleanup();
-      try {
-        if (!resp || resp.status !== 'ok') { reject(new Error('gviz status: ' + (resp&&resp.status))); return; }
-        const tbl  = resp.table;
-        const rows = [];
-        rows.push(tbl.cols.map(c => c.label || ''));
-        for (const row of (tbl.rows || [])) {
-          rows.push((row.c || []).map(cell => (cell && cell.v != null) ? String(cell.v) : ''));
-        }
-        resolve(rows);
-      } catch(e) { reject(e); }
-    };
-
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq`
-              + `?tqx=out:json;responseHandler:${cb}&gid=${GID}&t=${Date.now()}`;
-    script.src     = url;
-    script.onerror = () => { cleanup(); reject(new Error('gviz load failed')); };
-    document.head.appendChild(script);
-  });
+async function fetchViaGviz() {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID}&t=${Date.now()}`;
+  const response = await fetch(url);
+  if (!response.ok) throw new Error("Network response error");
+  const text = await response.text();
+  const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]+)\);/);
+  if (!match) throw new Error("Invalid response format");
+  const json = JSON.parse(match[1]);
+  if (json.status !== "ok") throw new Error("API error status");
+  const table = json.table;
+  const rows = [];
+  rows.push(table.cols.map(c => c.label || ""));
+  if (table.rows) {
+    table.rows.forEach(r => {
+      rows.push((r.c || []).map(cell => (cell && cell.v != null) ? String(cell.v) : ""));
+    });
+  }
+  return rows;
 }
-
-/* ═══════════════════════════════════════════════════
-   FETCH STRATEGY 2 — CSV export via fetch
-   gviz が失敗した場合のフォールバック
-═══════════════════════════════════════════════════ */
 async function fetchViaCSV() {
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export`
-            + `?format=csv&gid=${GID}&t=${Date.now()}`;
-  const resp = await fetch(url, { cache: 'no-store' });
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}&t=${Date.now()}`;
+  const resp = await fetch(url);
   if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
   const text = await resp.text();
   if (!text.trim()) throw new Error('empty response');
   return parseCSV(text);
 }
-
-/* ═══════════ MAIN FETCH ═══════════ */
 async function fetchTimetable() {
   if (isFetching) return;
   isFetching = true;
-
   setStatus('loading', '取得中', 'スプレッドシートへ接続しています…');
   if (!prevRows) {
     document.getElementById('timetable').innerHTML = stateHtml('loading', 'データ取得中', 'スプレッドシートへ接続しています…');
   }
-
   let rows = null;
   let method = '';
-
   try {
-    rows   = await fetchViaGviz();
-    method = 'gviz/tq';
+    rows = await fetchViaGviz();
+    method = 'Fetch API';
   } catch (e1) {
-    console.warn('[gviz] failed:', e1.message, '→ CSV fallback');
     try {
-      rows   = await fetchViaCSV();
-      method = 'CSV';
+      rows = await fetchViaCSV();
+      method = 'CSV Fallback';
     } catch (e2) {
-      console.error('[CSV] failed:', e2.message);
       isFetching = false;
       if (!prevRows) {
         document.getElementById('timetable').innerHTML = stateHtml(
           'error',
           'データ取得エラー',
-          'スプレッドシートへの接続に失敗しました。スプレッドシートが「リンクを知っている全員が閲覧可能」に設定されているか確認してください。',
+          'スプレッドシートへの接続に失敗しました。公開設定を確認してください。',
           `https://docs.google.com/spreadsheets/d/${SHEET_ID}/`
         );
       }
@@ -610,56 +534,47 @@ async function fetchTimetable() {
       return;
     }
   }
-
   const changes = detectChanges(prevRows, rows);
-  const el      = document.getElementById('timetable');
-  el.innerHTML  = renderTable(rows, changes);
+  const el = document.getElementById('timetable');
+  el.innerHTML = renderTable(rows, changes);
   el.classList.add('fade-in');
-
+  setTimeout(() => el.classList.remove('fade-in'), 500);
   if (changes.length > 0 && prevRows !== null) {
     document.getElementById('change-alert').classList.add('show');
-    document.getElementById('change-desc').textContent =
-      `${changes.length} 箇所の変更が検出されました。登録済みの方へ通知が送信されます。`;
+    document.getElementById('change-desc').textContent = `${changes.length} 箇所の変更が検出されました。登録済みの方へ通知が送信されます。`;
     tryBrowserNotify(changes.length);
   } else {
     document.getElementById('change-alert').classList.remove('show');
   }
-
   prevRows = rows;
-
   const now = new Date();
-  const ts  = now.toLocaleDateString('ja-JP') + ' '
-            + now.toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'});
+  const ts = now.toLocaleDateString('ja-JP') + ' ' + now.toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'});
   document.getElementById('updated-chip').textContent = ts + ' 更新';
-  setStatus('ok', '正常', `取得完了（${method}）`);
+  setStatus('ok', '正常', `取得完了`);
   isFetching = false;
   scheduleNext();
 }
-
 function scheduleNext() {
   clearTimeout(refreshTimer);
   refreshTimer = setTimeout(fetchTimetable, REFRESH_MS);
   startCountdown();
 }
-
-/* ═══════════ BROWSER NOTIFICATION ═══════════ */
 function tryBrowserNotify(count) {
   if (!('Notification' in window)) return;
   const fire = () => new Notification('時間割変更通知', {
-    body: `水戸第一高校の時間割が ${count} 箇所変更されました。`
+    body: `水戸第一高校の時間割が ${count} 箇所変更されました。`,
+    icon: 'https://raw.githubusercontent.com/astro-root/mito1-timetable/main/mito1-mark.png'
   });
   if (Notification.permission === 'granted') fire();
   else if (Notification.permission !== 'denied') {
     Notification.requestPermission().then(p => { if (p === 'granted') fire(); });
   }
 }
-
-/* ═══════════ MANUAL REFRESH ═══════════ */
 function manualRefresh() {
   clearTimeout(refreshTimer);
   clearInterval(countdownTimer);
   const icon = document.getElementById('refresh-icon');
-  const btn  = document.getElementById('refresh-btn');
+  const btn = document.getElementById('refresh-btn');
   icon.classList.add('spin');
   btn.setAttribute('disabled', '');
   fetchTimetable().finally(() => {
@@ -667,16 +582,12 @@ function manualRefresh() {
     btn.removeAttribute('disabled');
   });
 }
-
-/* ═══════════ VISIBILITY ═══════════ */
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible' && nextAt && Date.now() > nextAt) {
     clearTimeout(refreshTimer);
     fetchTimetable();
   }
 });
-
-/* ═══════════ INIT ═══════════ */
 fetchTimetable();
 </script>
 </body>
