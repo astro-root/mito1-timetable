@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>時間割通知 | 水戸第一高等学校・附属中学校</title>
-<meta name="description" content="水戸第一高等学校・附属中学校の時間割変更を自動検出し、メール・Discordで即時通知するサービスです。Google Apps Script による独自開発。">
+<meta name="description" content="水戸第一高等学校・附属中学校の時間割変更を自動検出し、メールで即時通知するサービスです。Google Apps Script による独自開発。">
 <meta name="keywords" content="水戸一高,水戸第一高校,附属中学校,時間割,自動通知,変更検出,茨城県立">
 <meta name="author" content="astro-root">
 <meta name="robots" content="index, follow">
@@ -13,7 +13,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="時間割通知 | 水戸第一高等学校・附属中学校">
-<meta property="og:description" content="時間割の変更を自動検出し、メール・Discordで即時通知します。Google Apps Script 活用の独自サービス。">
+<meta property="og:description" content="時間割の変更を自動検出し、メールで即時通知します。Google Apps Script 活用の独自サービス。">
 <meta property="og:url" content="https://mito1-timetable.astro-root.com/">
 <meta property="og:image" content="https://raw.githubusercontent.com/astro-root/mito1-timetable/main/mito1-mark.svg">
 <meta property="og:site_name" content="水戸一高 時間割通知">
@@ -21,7 +21,7 @@
 
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="時間割通知 | 水戸第一高等学校・附属中学校">
-<meta name="twitter:description" content="時間割の変更を自動検出し、メール・Discordで即時通知します。">
+<meta name="twitter:description" content="時間割の変更を自動検出し、メールで即時通知します。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/astro-root/mito1-timetable/main/mito1-mark.svg">
 
 <link rel="icon" href="https://raw.githubusercontent.com/astro-root/mito1-timetable/main/mito1-mark.svg">
@@ -32,7 +32,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "水戸第一高等学校・附属中学校 時間割通知サービス",
-  "description": "時間割の変更を自動検出し、メール・Discordで即時通知するサービス",
+  "description": "時間割の変更を自動検出し、メールで即時通知するサービス",
   "url": "https://mito1-timetable.astro-root.com/",
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "Web",
@@ -62,8 +62,6 @@
   --accent-light:  #e8bc30;
   --accent-dim:    rgba(201,162,39,.13);
   --accent-ring:   rgba(201,162,39,.32);
-  --discord:       #5865f2;
-  --discord-dim:   rgba(88,101,242,.14);
   --red:           #e05555;
   --red-dim:       rgba(224,85,85,.13);
   --green:         #4cb87d;
@@ -86,8 +84,6 @@
   --accent-light:  #7d6015;
   --accent-dim:    rgba(168,132,30,.10);
   --accent-ring:   rgba(168,132,30,.28);
-  --discord:       #4752c4;
-  --discord-dim:   rgba(71,82,196,.10);
   --red:           #dc2626;
   --red-dim:       rgba(220,38,38,.10);
   --green:         #16a34a;
@@ -188,8 +184,6 @@ a:hover{color:var(--accent-light);}
 .btn-primary:hover{background:var(--accent-light);box-shadow:0 4px 16px var(--accent-dim);color:#fff;}
 .btn-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(224,85,85,.3);}
 .btn-danger:hover{background:var(--red);color:#fff;}
-.btn-discord{background:var(--discord);color:#fff;}
-.btn-discord:hover{opacity:.88;box-shadow:0 4px 16px var(--discord-dim);}
 .btn-sm{padding:6px 11px;font-size:12px;border-radius:7px;}
 .btn-outline{
   background:transparent;color:var(--accent);
@@ -299,7 +293,6 @@ a:hover{color:var(--accent-light);}
   margin-bottom:14px;transition:transform .25s;flex-shrink:0;
 }
 .card:hover .card-icon-wrap{transform:scale(1.08) rotate(4deg);}
-.card.card-discord .card-icon-wrap{background:var(--discord-dim);border-color:rgba(88,101,242,.3);}
 .card-title{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:7px;}
 .card-desc{font-size:12px;color:var(--text-secondary);line-height:1.65;flex:1;margin-bottom:16px;}
 
@@ -395,16 +388,12 @@ a:hover{color:var(--accent-light);}
     <h2 class="hero-title">時間割の変更を<br>見逃さない</h2>
     <p class="hero-desc">
       水戸第一高等学校・附属中学校の公式時間割を定期的に監視し、
-      変更が検出された際にメール・Discordへ即時通知します。
+      変更が検出された際にメールへ即時通知します。
     </p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="https://forms.gle/mzY3XEafypk2vgZr5" target="_blank" rel="noopener">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         通知を登録する
-      </a>
-      <a class="btn btn-discord" href="https://discord.gg/zU9URUeCRq" target="_blank" rel="noopener">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.8 19.8 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-        Discord に参加
       </a>
     </div>
   </section>
@@ -463,15 +452,6 @@ a:hover{color:var(--accent-light);}
         通知解除フォーム
       </a>
     </div>
-    <div class="card card-discord">
-      <div class="card-icon-wrap" aria-hidden="true">💬</div>
-      <h2 class="card-title">Discord で通知を受け取る</h2>
-      <p class="card-desc">Discordサーバーに参加するとリアルタイムで変更通知を受け取れます。</p>
-      <a class="btn btn-discord" href="https://discord.gg/zU9URUeCRq" target="_blank" rel="noopener">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.8 19.8 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-        Discord に参加
-      </a>
-    </div>
   </section>
 
   <!-- ══ ABOUT ══ -->
@@ -495,7 +475,7 @@ a:hover{color:var(--accent-light);}
         <div class="info-item-icon" aria-hidden="true">📨</div>
         <div>
           <p class="info-label">即時通知</p>
-          <p class="info-text">変更確認後、登録済みのメール・Discordへ即時通知します。</p>
+          <p class="info-text">変更確認後、登録済みのメールへ即時通知します。</p>
         </div>
       </div>
       <div class="info-item">
