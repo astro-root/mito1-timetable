@@ -14,63 +14,63 @@
 <link rel="icon" href="https://raw.githubusercontent.com/astro-root/mito1-timetable/main/mito1-mark.png">
 <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/astro-root/mito1-timetable/main/mito1-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --transition-theme: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
 [data-theme="dark"] {
-  --bg-base: #0f172a;
-  --bg-surface: #1e293b;
-  --bg-elevated: #334155;
-  --bg-hover: #475569;
-  --border: #334155;
-  --border-strong: #475569;
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --accent: #eab308;
-  --accent-light: #fde047;
-  --accent-dim: rgba(234, 179, 8, 0.15);
-  --accent-ring: rgba(234, 179, 8, 0.4);
-  --blue: #3b82f6;
-  --blue-dim: rgba(59, 130, 246, 0.15);
+  --bg-base: #0b1628;
+  --bg-surface: #111f35;
+  --bg-elevated: #1a2f4a;
+  --bg-hover: #233a5a;
+  --border: #1e3555;
+  --border-strong: #2a4a72;
+  --text-primary: #eef2f7;
+  --text-secondary: #8faec8;
+  --text-muted: #4a6a88;
+  --accent: #c9a227;
+  --accent-light: #e8bc30;
+  --accent-dim: rgba(201,162,39,0.12);
+  --accent-ring: rgba(201,162,39,0.32);
+  --blue: #4a90d9;
+  --blue-dim: rgba(74,144,217,0.14);
   --discord: #5865f2;
-  --discord-dim: rgba(88, 101, 242, 0.15);
-  --red: #ef4444;
-  --red-dim: rgba(239, 68, 68, 0.15);
-  --green: #22c55e;
-  --green-dim: rgba(34, 197, 94, 0.15);
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.5);
-  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.5);
+  --discord-dim: rgba(88,101,242,0.14);
+  --red: #e05555;
+  --red-dim: rgba(224,85,85,0.12);
+  --green: #4cb87d;
+  --green-dim: rgba(76,184,125,0.12);
+  --shadow-sm: 0 2px 10px rgba(0,0,0,0.45);
+  --shadow-md: 0 6px 24px rgba(0,0,0,0.55);
+  --shadow-lg: 0 14px 48px rgba(0,0,0,0.65);
+  --header-blur-bg: rgba(11,22,40,0.88);
 }
 [data-theme="light"] {
-  --bg-base: #f8fafc;
+  --bg-base: #f4f6fa;
   --bg-surface: #ffffff;
-  --bg-elevated: #f1f5f9;
-  --bg-hover: #e2e8f0;
-  --border: #e2e8f0;
-  --border-strong: #cbd5e1;
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  --accent: #ca8a04;
-  --accent-light: #a16207;
-  --accent-dim: rgba(202, 138, 4, 0.1);
-  --accent-ring: rgba(202, 138, 4, 0.3);
+  --bg-elevated: #eaeff6;
+  --bg-hover: #dce4f0;
+  --border: #d8e2ee;
+  --border-strong: #b2c4db;
+  --text-primary: #0b1628;
+  --text-secondary: #3a5572;
+  --text-muted: #6685a0;
+  --accent: #a8841e;
+  --accent-light: #7d6015;
+  --accent-dim: rgba(168,132,30,0.1);
+  --accent-ring: rgba(168,132,30,0.28);
   --blue: #2563eb;
-  --blue-dim: rgba(37, 99, 235, 0.1);
+  --blue-dim: rgba(37,99,235,0.1);
   --discord: #4752c4;
-  --discord-dim: rgba(71, 82, 196, 0.1);
+  --discord-dim: rgba(71,82,196,0.1);
   --red: #dc2626;
-  --red-dim: rgba(220, 38, 38, 0.1);
+  --red-dim: rgba(220,38,38,0.1);
   --green: #16a34a;
-  --green-dim: rgba(22, 163, 74, 0.1);
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
-  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+  --green-dim: rgba(22,163,74,0.1);
+  --shadow-sm: 0 2px 10px rgba(0,0,0,0.06);
+  --shadow-md: 0 6px 24px rgba(0,0,0,0.09);
+  --shadow-lg: 0 14px 48px rgba(0,0,0,0.12);
+  --header-blur-bg: rgba(244,246,250,0.92);
 }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
@@ -79,193 +79,286 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   line-height: 1.6;
-  transition: var(--transition-theme);
+  transition: background 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
 }
 a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
-a:hover { color: var(--accent-light); text-decoration: none; }
-.page { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
-@media (min-width: 640px) { .page { padding: 0 32px; } }
-@media (min-width: 1024px) { .page { padding: 0 48px; } }
+a:hover { color: var(--accent-light); }
+
+.page-wrap { max-width: 1100px; margin: 0 auto; padding: 0 18px; }
+@media (min-width: 640px) { .page-wrap { padding: 0 32px; } }
+@media (min-width: 1024px) { .page-wrap { padding: 0 48px; } }
+
 .site-header {
-  position: sticky; top: 0; z-index: 50;
-  background: rgba(var(--bg-base), 0.8);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  padding: 24px 0 20px; border-bottom: 1px solid var(--border);
-  transition: var(--transition-theme);
+  position: sticky; top: 0; z-index: 100; width: 100%;
+  background: var(--header-blur-bg);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s, border-color 0.3s;
 }
-.header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-.school-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--accent-dim); border: 1px solid var(--accent-ring);
-  border-radius: 999px; padding: 4px 14px;
-  font-size: 12px; color: var(--accent); font-weight: 600;
-  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em;
-  margin-bottom: 12px;
+.header-inner {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 18px;
+  max-width: 1100px; margin: 0 auto;
 }
-.live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
-.school-title { font-family: 'Noto Serif JP', serif; font-size: clamp(20px, 5vw, 28px); font-weight: 700; color: var(--text-primary); letter-spacing: 0.05em; line-height: 1.4; }
-.school-sub { margin-top: 6px; font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; }
-.header-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
-.theme-toggle {
-  position: relative; width: 56px; height: 30px;
-  background: var(--bg-elevated); border: 1px solid var(--border-strong);
-  border-radius: 15px; cursor: pointer;
-  transition: var(--transition-theme); flex-shrink: 0;
-}
-.theme-toggle:hover { border-color: var(--accent); box-shadow: 0 0 8px var(--accent-dim); }
-.theme-toggle-thumb {
-  position: absolute; top: 3px; left: 3px;
-  width: 22px; height: 22px; border-radius: 50%;
-  background: var(--bg-surface); box-shadow: var(--shadow-sm);
+@media (min-width: 640px) { .header-inner { padding: 14px 32px; } }
+@media (min-width: 1024px) { .header-inner { padding: 14px 48px; } }
+
+.header-brand { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; }
+.school-emblem {
+  width: 46px; height: 46px; border-radius: 50%;
+  border: 2px solid var(--accent-ring);
+  background: var(--accent-dim);
+  overflow: hidden; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  font-size: 12px; transition: transform 0.4s cubic-bezier(.4,0,.2,1); user-select: none;
+  transition: border-color 0.3s;
 }
-[data-theme="light"] .theme-toggle-thumb { transform: translateX(26px); }
+.school-emblem img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
+.emblem-fb { font-size: 22px; }
+.header-text { min-width: 0; }
+.school-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--green-dim); border: 1px solid rgba(76,184,125,0.28);
+  border-radius: 999px; padding: 2px 10px;
+  font-size: 10px; font-weight: 700; color: var(--green);
+  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em;
+  margin-bottom: 5px;
+}
+.live-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: currentColor;
+  animation: blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+.school-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(15px, 3vw, 21px); font-weight: 700;
+  color: var(--text-primary); letter-spacing: 0.04em; line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.school-sub {
+  font-size: 9px; color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.14em; margin-top: 2px;
+}
+.header-controls { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.updated-chip {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-secondary); background: var(--bg-elevated);
+  border: 1px solid var(--border-strong); border-radius: 7px;
+  padding: 4px 10px; white-space: nowrap;
+}
 .btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 10px 20px; border-radius: 10px;
-  font-size: 14px; font-weight: 600; font-family: 'Noto Sans JP', sans-serif;
-  cursor: pointer; border: none; text-decoration: none;
-  transition: all 0.2s ease; white-space: nowrap; line-height: 1.2;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 8px 16px; border-radius: 9px; font-size: 13px; font-weight: 600;
+  font-family: 'Noto Sans JP', sans-serif; cursor: pointer; border: none;
+  text-decoration: none; transition: all 0.2s ease; white-space: nowrap; line-height: 1;
 }
-.btn:active { transform: scale(0.98); }
-.btn-ghost { background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-strong); }
-.btn-ghost:hover { background: var(--bg-hover); border-color: var(--accent); }
-.btn-primary { background: var(--accent); color: var(--bg-base); }
-.btn-primary:hover { background: var(--accent-light); box-shadow: 0 4px 12px var(--accent-dim); }
-.btn-danger { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
+.btn:active { transform: scale(0.97); }
+.btn-ghost { background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border-strong); }
+.btn-ghost:hover { background: var(--bg-hover); border-color: var(--accent); color: var(--text-primary); }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-light); box-shadow: 0 4px 16px var(--accent-dim); color: #fff; }
+.btn-danger { background: var(--red-dim); color: var(--red); border: 1px solid rgba(224,85,85,0.3); }
 .btn-danger:hover { background: var(--red); color: #fff; }
 .btn-discord { background: var(--discord); color: #fff; }
-.btn-discord:hover { background: #4752c4; box-shadow: 0 4px 12px var(--discord-dim); }
-.btn-sm { padding: 6px 14px; font-size: 13px; border-radius: 8px; }
-.btn[disabled] { opacity: 0.6; pointer-events: none; }
-.spin { animation: rotate 1s linear infinite; }
+.btn-discord:hover { opacity: 0.88; box-shadow: 0 4px 16px var(--discord-dim); }
+.btn-sm { padding: 6px 12px; font-size: 12px; border-radius: 7px; }
+.btn[disabled] { opacity: 0.45; pointer-events: none; }
+.spin { animation: rotate 0.75s linear infinite; }
 @keyframes rotate { to { transform: rotate(360deg); } }
+.theme-toggle {
+  width: 50px; height: 27px; position: relative;
+  background: var(--bg-elevated); border: 1px solid var(--border-strong);
+  border-radius: 14px; cursor: pointer; flex-shrink: 0; transition: border-color 0.2s;
+}
+.theme-toggle:hover { border-color: var(--accent); }
+.theme-toggle-thumb {
+  position: absolute; top: 2px; left: 2px;
+  width: 21px; height: 21px; border-radius: 50%;
+  background: var(--bg-surface); box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+}
+[data-theme="light"] .theme-toggle-thumb { transform: translateX(23px); }
+
 .status-bar {
   display: flex; align-items: center; gap: 12px;
-  padding: 14px 20px; background: var(--bg-surface);
-  border: 1px solid var(--border); border-radius: 12px;
-  margin: 24px 0; font-size: 13px;
-  flex-wrap: wrap; box-shadow: var(--shadow-sm);
-  transition: var(--transition-theme);
+  padding: 11px 18px; background: var(--bg-surface);
+  border: 1px solid var(--border); border-radius: 11px;
+  margin: 20px 0; font-size: 13px; flex-wrap: wrap;
+  transition: all 0.3s ease; box-shadow: var(--shadow-sm);
 }
-.status-pill { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; }
+.status-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 3px 10px; border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+}
 .status-pill.ok { background: var(--green-dim); color: var(--green); }
 .status-pill.error { background: var(--red-dim); color: var(--red); }
 .status-pill.loading { background: var(--blue-dim); color: var(--blue); }
-.status-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 .status-pill.ok .status-dot { animation: blink 2s infinite; }
-.status-message { color: var(--text-secondary); flex: 1; min-width: 150px; font-weight: 500; }
-.countdown { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+.status-message { color: var(--text-secondary); flex: 1; font-weight: 500; min-width: 120px; }
+.countdown { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+
 .change-alert {
-  display: none; padding: 18px 24px;
+  display: none; padding: 15px 20px;
   background: var(--accent-dim); border: 1px solid var(--accent-ring);
-  border-left: 6px solid var(--accent); border-radius: 12px;
-  margin-bottom: 24px; gap: 16px; align-items: flex-start;
-  animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: var(--shadow-md);
+  border-left: 4px solid var(--accent); border-radius: 11px;
+  margin-bottom: 20px; gap: 14px; align-items: flex-start;
+  animation: slideDown 0.4s cubic-bezier(0.16,1,0.3,1);
 }
 .change-alert.show { display: flex; }
-@keyframes slideDown { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
-.alert-icon { font-size: 22px; margin-top: 2px; flex-shrink: 0; }
-.alert-title { font-weight: 700; font-size: 15px; color: var(--accent-light); margin-bottom: 4px; }
+@keyframes slideDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+.alert-icon { font-size: 19px; flex-shrink: 0; margin-top: 1px; }
+.alert-title { font-weight: 700; font-size: 14px; color: var(--accent-light); margin-bottom: 3px; }
 .alert-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
-.section-head { display: flex; align-items: center; gap: 16px; margin: 40px 0 20px; }
-.section-label { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; white-space: nowrap; }
-.section-line { flex: 1; height: 1px; background: var(--border-strong); }
-.table-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-md); transition: var(--transition-theme); }
-.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
-.table-scroll::-webkit-scrollbar { height: 6px; }
-.table-scroll::-webkit-scrollbar-track { background: var(--bg-base); }
-.table-scroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
-#timetable table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; }
+
+.section-head { display: flex; align-items: center; gap: 14px; margin: 36px 0 16px; }
+.section-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: var(--text-muted); text-transform: uppercase; white-space: nowrap; }
+.section-line { flex: 1; height: 1px; background: var(--border-strong); opacity: 0.5; }
+
+.timetable-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-md); }
+
+.view-tabs { display: flex; background: var(--bg-elevated); border-bottom: 1px solid var(--border); overflow-x: auto; }
+.view-tab {
+  padding: 12px 20px; font-size: 13px; font-weight: 600; color: var(--text-muted);
+  background: transparent; border: none; border-bottom: 2px solid transparent;
+  cursor: pointer; white-space: nowrap; transition: all 0.2s ease;
+  font-family: 'Noto Sans JP', sans-serif; margin-bottom: -1px;
+}
+.view-tab:hover { color: var(--text-secondary); background: var(--bg-hover); }
+.view-tab.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--bg-surface); }
+
+.embed-container { position: relative; }
+.embed-inner { position: relative; min-height: 480px; }
+.iframe-overlay {
+  position: absolute; inset: 0; z-index: 5;
+  background: var(--bg-surface);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px; padding: 48px 24px; text-align: center;
+  transition: opacity 0.3s ease;
+}
+.iframe-overlay.hidden { display: none; }
+.sheets-iframe {
+  width: 100%; height: 540px; border: none; display: block;
+  background: #fff;
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.sheets-iframe.loaded { opacity: 1; }
+@media (max-width: 640px) { .sheets-iframe { height: 420px; } }
+.embed-footer {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 10px 16px; background: var(--bg-elevated); border-top: 1px solid var(--border);
+}
+.embed-note { font-size: 11px; color: var(--text-muted); flex: 1; font-family: 'JetBrains Mono', monospace; min-width: 0; }
+
+.table-view-wrap { display: none; }
+.scroll-hint {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 8px 16px; background: var(--bg-elevated); border-bottom: 1px solid var(--border);
+  font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;
+}
+.scroll-hint svg { flex-shrink: 0; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+.table-scroll::-webkit-scrollbar { height: 5px; }
+.table-scroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 999px; }
+
+#timetable table { border-collapse: collapse; font-size: 13px; width: max-content; min-width: 100%; }
 #timetable thead th {
   background: var(--bg-elevated); color: var(--text-secondary);
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.05em;
-  padding: 14px 18px; text-align: center;
-  border-bottom: 2px solid var(--border-strong); white-space: nowrap;
-  position: sticky; top: 0; z-index: 2;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+  padding: 12px 16px; text-align: center; border-bottom: 2px solid var(--border-strong);
+  white-space: nowrap; position: sticky; top: 0; z-index: 2;
 }
-#timetable thead th:first-child { text-align: left; border-right: 1px solid var(--border); position: sticky; left: 0; z-index: 3; }
-#timetable tbody tr { transition: background 0.2s ease; border-bottom: 1px solid var(--border); }
+#timetable thead th:first-child { text-align: left; border-right: 1px solid var(--border); position: sticky; left: 0; z-index: 3; background: var(--bg-elevated); }
+#timetable tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
 #timetable tbody tr:hover { background: var(--bg-hover); }
-#timetable tbody td { padding: 12px 18px; text-align: center; color: var(--text-primary); vertical-align: middle; transition: background 0.2s ease; }
-#timetable tbody td:first-child {
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-secondary);
-  text-align: left; border-right: 1px solid var(--border); background: var(--bg-elevated);
-  white-space: nowrap; font-weight: 600; position: sticky; left: 0; z-index: 1;
-}
+#timetable tbody td { padding: 10px 16px; text-align: center; color: var(--text-primary); vertical-align: middle; white-space: nowrap; }
+#timetable tbody td:first-child { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: var(--text-secondary); text-align: left; border-right: 1px solid var(--border); background: var(--bg-elevated); white-space: nowrap; position: sticky; left: 0; z-index: 1; }
 #timetable tbody tr:last-child { border-bottom: none; }
-#timetable tbody td.changed { background: var(--accent-dim); color: var(--accent-light); font-weight: 700; position: relative; }
-#timetable tbody td.changed::after { content:''; position:absolute; inset:0; border: 2px solid var(--accent); pointer-events: none; }
-.table-state { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:80px 24px; gap:16px; color:var(--text-muted); text-align:center; }
+#timetable tbody td.changed { background: var(--accent-dim); color: var(--accent-light); font-weight: 700; outline: 2px solid var(--accent); outline-offset: -2px; }
+.table-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 64px 24px; gap: 14px; color: var(--text-muted); text-align: center; }
 .spinner-svg { animation: rotate 1.2s linear infinite; color: var(--accent); }
-.table-state-title { font-size:16px; font-weight:700; color:var(--text-primary); }
-.table-state-desc { font-size:14px; font-family:'JetBrains Mono',monospace; max-width:450px; line-height:1.6; color:var(--text-secondary); }
-.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
-.card { background:var(--bg-surface); border:1px solid var(--border); border-radius:16px; padding:24px; transition:all 0.3s ease; display:flex; flex-direction:column; box-shadow:var(--shadow-sm); }
-.card:hover { border-color:var(--border-strong); box-shadow:var(--shadow-lg); transform:translateY(-4px); }
-.card-icon-wrap { width:48px;height:48px; border-radius:12px; background:var(--accent-dim); border:1px solid var(--accent-ring); display:flex;align-items:center;justify-content:center; font-size:22px; margin-bottom:18px; flex-shrink:0; transition: transform 0.3s ease; }
+.table-state-title { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+.table-state-desc { font-size: 13px; font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); max-width: 380px; line-height: 1.6; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; transition: all 0.25s ease; box-shadow: var(--shadow-sm); }
+.card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.card-icon-wrap { width: 44px; height: 44px; border-radius: 11px; background: var(--accent-dim); border: 1px solid var(--accent-ring); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; transition: transform 0.25s ease; flex-shrink: 0; }
 .card:hover .card-icon-wrap { transform: scale(1.1) rotate(5deg); }
-.card.card-discord .card-icon-wrap { background:var(--discord-dim); border-color:rgba(88,101,242,0.4); }
-.card-title { font-size:16px; font-weight:700; color:var(--text-primary); margin-bottom:10px; }
-.card-desc { font-size:14px; color:var(--text-secondary); line-height:1.6; flex:1; margin-bottom:20px; }
-.info-card { background:var(--bg-surface); border:1px solid var(--border); border-radius:16px; padding:28px; transition:var(--transition-theme); box-shadow:var(--shadow-sm); }
-.info-card-title { font-family:'Noto Serif JP',serif; font-size:18px; font-weight:700; color:var(--text-primary); display:flex;align-items:center;gap:10px; margin-bottom:24px; }
-.info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; }
-.info-item { display:flex; align-items:flex-start; gap:16px; }
-.info-item-icon { width:40px;height:40px; border-radius:10px; background:var(--bg-elevated); border:1px solid var(--border-strong); display:flex;align-items:center;justify-content:center; font-size:18px; flex-shrink:0; margin-top:2px; }
-.info-label { font-size:12px; font-weight:700; color:var(--text-primary); font-family:'JetBrains Mono',monospace; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:6px; }
-.info-text { font-size:13px; color:var(--text-secondary); line-height:1.6; }
-.site-footer { border-top:1px solid var(--border); padding:32px 0 40px; margin-top:48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; transition:var(--transition-theme); }
-.footer-text { font-size:13px; color:var(--text-secondary); line-height:1.6; }
-.footer-text a { color:var(--text-primary); border-bottom:1px solid var(--border-strong); padding-bottom:2px; }
-.footer-mono { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-muted); letter-spacing:0.1em; text-align:right; line-height:1.6; }
-.updated-chip { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-primary); background:var(--bg-elevated); border:1px solid var(--border-strong); border-radius:8px; padding:4px 12px; white-space:nowrap; font-weight: 600; }
-.fade-in { animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
-@media (max-width:768px) {
-  .header-right { width:100%; justify-content:space-between; margin-top: 10px; }
-  .countdown { width:100%; margin-left:0; text-align: left; margin-top: 8px; }
-  .table-state { padding: 40px 16px; }
+.card.card-discord .card-icon-wrap { background: var(--discord-dim); border-color: rgba(88,101,242,0.3); }
+.card-title { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+.card-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; flex: 1; margin-bottom: 18px; }
+
+.info-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; box-shadow: var(--shadow-sm); }
+.info-card-title { font-family: 'Noto Serif JP', serif; font-size: 16px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; }
+.info-item { display: flex; align-items: flex-start; gap: 14px; }
+.info-item-icon { width: 38px; height: 38px; border-radius: 9px; background: var(--bg-elevated); border: 1px solid var(--border-strong); display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+.info-label { font-size: 10px; font-weight: 700; color: var(--accent); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; }
+.info-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+.site-footer { border-top: 1px solid var(--border); padding: 28px 0 36px; margin-top: 52px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.footer-text { font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+.footer-text a { color: var(--text-primary); border-bottom: 1px solid var(--border-strong); padding-bottom: 1px; }
+.footer-mono { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.12em; text-align: right; line-height: 1.9; }
+
+.fade-in { animation: fadeIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+@media (max-width: 768px) {
+  .header-controls { flex-wrap: wrap; }
+  .countdown { width: 100%; margin-left: 0; margin-top: 4px; text-align: left; }
 }
-@media (max-width:480px) {
-  .site-header { padding: 16px 0; }
-  .cards, .info-grid { grid-template-columns:1fr; }
-  .site-footer { flex-direction:column; align-items:flex-start; }
-  .footer-mono { text-align:left; }
-  .school-title { font-size: 18px; }
+@media (max-width: 480px) {
+  .header-inner { flex-wrap: wrap; }
+  .header-controls { width: 100%; justify-content: space-between; }
+  .cards, .info-grid { grid-template-columns: 1fr; }
+  .site-footer { flex-direction: column; }
+  .footer-mono { text-align: left; }
+  .sheets-iframe { height: 380px; }
 }
 </style>
 </head>
 <body>
-<div class="page">
-  <header class="site-header">
-    <div class="header-row">
-      <div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="school-emblem">
+        <img
+          src="https://raw.githubusercontent.com/astro-root/mito1-timetable/main/mito1-mark.png"
+          alt="水戸一高校章"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <span class="emblem-fb" style="display:none">🏫</span>
+      </div>
+      <div class="header-text">
         <div class="school-badge"><span class="live-dot"></span>自動検出・通知サービス稼働中</div>
         <div class="school-title">水戸第一高等学校・附属中学校</div>
         <div class="school-sub">MITO FIRST HIGH SCHOOL — TIMETABLE NOTIFICATION</div>
       </div>
-      <div class="header-right">
-        <span class="updated-chip" id="updated-chip">取得中…</span>
-        <button class="btn btn-ghost btn-sm" id="refresh-btn" onclick="manualRefresh()">
-          <svg id="refresh-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
-            <path d="M21 3v5h-5"/>
-            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
-            <path d="M8 16H3v5"/>
-          </svg>
-          更新
-        </button>
-        <div class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="ダーク/ライト切替" role="button" aria-label="テーマ切替">
-          <div class="theme-toggle-thumb"><span id="theme-icon">🌙</span></div>
-        </div>
+    </div>
+    <div class="header-controls">
+      <span class="updated-chip" id="updated-chip">取得中…</span>
+      <button class="btn btn-ghost btn-sm" id="refresh-btn" onclick="manualRefresh()">
+        <svg id="refresh-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+          <path d="M21 3v5h-5"/>
+          <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+          <path d="M8 16H3v5"/>
+        </svg>
+        更新
+      </button>
+      <div class="theme-toggle" onclick="toggleTheme()" title="ダーク/ライト切替">
+        <div class="theme-toggle-thumb"><span id="theme-icon">🌙</span></div>
       </div>
     </div>
-  </header>
+  </div>
+</header>
+
+<div class="page-wrap">
+
   <div class="status-bar">
     <div class="status-pill loading" id="status-pill">
       <span class="status-dot"></span>
@@ -274,6 +367,7 @@ a:hover { color: var(--accent-light); text-decoration: none; }
     <span class="status-message" id="status-message">スプレッドシートからデータを読み込んでいます…</span>
     <span class="countdown" id="countdown">次回自動更新: —</span>
   </div>
+
   <div class="change-alert" id="change-alert">
     <span class="alert-icon">⚠️</span>
     <div>
@@ -281,36 +375,85 @@ a:hover { color: var(--accent-light); text-decoration: none; }
       <div class="alert-desc" id="change-desc">前回の取得から変更があります。登録済みの方にはメール・Discordで通知が送信されます。</div>
     </div>
   </div>
+
   <div class="section-head">
     <span class="section-label">時間割</span>
     <div class="section-line"></div>
     <span class="section-label">TIMETABLE</span>
   </div>
-  <div class="table-card">
-    <div class="table-scroll">
-      <div id="timetable">
-        <div class="table-state">
-          <svg class="spinner-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+
+  <div class="timetable-card">
+    <div class="view-tabs">
+      <button class="view-tab active" id="tab-embed" onclick="switchView('embed')">
+        📊&nbsp; スプレッドシートビュー
+      </button>
+      <button class="view-tab" id="tab-table" onclick="switchView('table')">
+        📋&nbsp; テキストビュー（変更検出）
+      </button>
+    </div>
+
+    <div id="view-embed" class="embed-container">
+      <div class="embed-inner">
+        <div id="iframe-loading" class="iframe-overlay">
+          <svg class="spinner-svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
           </svg>
-          <div class="table-state-title">データ取得中</div>
-          <div class="table-state-desc">スプレッドシートへ接続しています…</div>
+          <div class="table-state-title">スプレッドシートを読み込み中</div>
+          <div class="table-state-desc">Google スプレッドシートへ接続しています…</div>
+        </div>
+        <iframe
+          id="sheets-iframe"
+          class="sheets-iframe"
+          src="https://docs.google.com/spreadsheets/d/1fdSGqT1s2kit91TcQV_mjcuvOawGAU6JZ_5N684bH3U/pubhtml?gid=0&single=true&widget=false&chrome=false"
+          frameborder="0"
+          scrolling="yes"
+          onload="onIframeLoad()"
+          title="水戸第一高校 時間割">
+        </iframe>
+      </div>
+      <div class="embed-footer">
+        <span class="embed-note">📌 画像・色・書式を含む元データをそのまま表示&nbsp;|&nbsp;表示されない場合→テキストビューへ</span>
+        <a class="btn btn-ghost btn-sm"
+           href="https://docs.google.com/spreadsheets/d/1fdSGqT1s2kit91TcQV_mjcuvOawGAU6JZ_5N684bH3U/"
+           target="_blank" rel="noopener">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          元データを開く
+        </a>
+      </div>
+    </div>
+
+    <div id="view-table" class="table-view-wrap">
+      <div class="scroll-hint">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M5 12l4-4M5 12l4 4M19 12l-4-4M19 12l-4 4"/></svg>
+        横スクロールで全クラスを表示できます
+      </div>
+      <div class="table-scroll">
+        <div id="timetable">
+          <div class="table-state">
+            <svg class="spinner-svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            </svg>
+            <div class="table-state-title">データ取得中</div>
+            <div class="table-state-desc">スプレッドシートへ接続しています…</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="section-head" style="margin-top:48px;">
+
+  <div class="section-head" style="margin-top:52px;">
     <span class="section-label">通知設定</span>
     <div class="section-line"></div>
     <span class="section-label">NOTIFICATION</span>
   </div>
+
   <div class="cards">
     <div class="card">
       <div class="card-icon-wrap">📧</div>
       <div class="card-title">メール通知を登録</div>
       <div class="card-desc">時間割の変更が検出された際、登録メールアドレスへ自動通知します。</div>
       <a class="btn btn-primary" href="https://forms.gle/mzY3XEafypk2vgZr5" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         通知登録フォーム
       </a>
     </div>
@@ -319,7 +462,7 @@ a:hover { color: var(--accent-light); text-decoration: none; }
       <div class="card-title">メール通知を解除</div>
       <div class="card-desc">通知の受信を停止したい場合は、こちらのフォームから解除できます。</div>
       <a class="btn btn-danger" href="https://forms.gle/gDsqGesMZavUwSpu7" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
         通知解除フォーム
       </a>
     </div>
@@ -328,16 +471,18 @@ a:hover { color: var(--accent-light); text-decoration: none; }
       <div class="card-title">Discord で通知を受け取る</div>
       <div class="card-desc">Discordサーバーに参加するとリアルタイムで変更通知を受け取れます。</div>
       <a class="btn btn-discord" href="https://discord.gg/zU9URUeCRq" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.8 19.8 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.8 19.8 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
         Discord に参加
       </a>
     </div>
   </div>
-  <div class="section-head" style="margin-top:48px;">
+
+  <div class="section-head" style="margin-top:52px;">
     <span class="section-label">このサービスについて</span>
     <div class="section-line"></div>
     <span class="section-label">ABOUT</span>
   </div>
+
   <div class="info-card">
     <div class="info-card-title">⚙️ サービス概要</div>
     <div class="info-grid">
@@ -371,14 +516,17 @@ a:hover { color: var(--accent-light); text-decoration: none; }
       </div>
     </div>
   </div>
+
   <footer class="site-footer">
     <div class="footer-text">
       ご不明な点・ご要望は開発者までお気軽にどうぞ<br>
-      <a href="mailto:contact@astro-root.com">contact@astro-root.com</a>
+      <a href="mailto:astro-root@example.com">astro-root@example.com</a>
     </div>
     <div class="footer-mono">POWERED BY GOOGLE APPS SCRIPT<br>© ASTRO-ROOT DEVELOPMENT</div>
   </footer>
+
 </div>
+
 <script>
 const SHEET_ID = '1fdSGqT1s2kit91TcQV_mjcuvOawGAU6JZ_5N684bH3U';
 const GID = '0';
@@ -388,11 +536,13 @@ let refreshTimer = null;
 let countdownTimer = null;
 let nextAt = null;
 let isFetching = false;
+
 (function initTheme() {
   const saved = localStorage.getItem('theme');
   const pref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
   applyTheme(saved || pref, false);
 })();
+
 function applyTheme(t, save) {
   document.documentElement.setAttribute('data-theme', t);
   document.getElementById('theme-icon').textContent = t === 'dark' ? '🌙' : '☀️';
@@ -402,6 +552,28 @@ function toggleTheme() {
   const cur = document.documentElement.getAttribute('data-theme');
   applyTheme(cur === 'dark' ? 'light' : 'dark', true);
 }
+
+let currentView = localStorage.getItem('timetable-view') || 'embed';
+function switchView(v) {
+  currentView = v;
+  localStorage.setItem('timetable-view', v);
+  document.getElementById('tab-embed').classList.toggle('active', v === 'embed');
+  document.getElementById('tab-table').classList.toggle('active', v === 'table');
+  document.getElementById('view-embed').style.display = v === 'embed' ? 'block' : 'none';
+  document.getElementById('view-table').style.display = v === 'table' ? 'block' : 'none';
+}
+switchView(currentView);
+
+let iframeRevealed = false;
+function onIframeLoad() {
+  if (iframeRevealed) return;
+  iframeRevealed = true;
+  document.getElementById('iframe-loading').classList.add('hidden');
+  const iframe = document.getElementById('sheets-iframe');
+  iframe.classList.add('loaded');
+}
+setTimeout(() => { if (!iframeRevealed) onIframeLoad(); }, 4000);
+
 function setStatus(state, label, msg) {
   document.getElementById('status-pill').className = 'status-pill ' + state;
   document.getElementById('status-label').textContent = label;
@@ -470,9 +642,9 @@ function renderTable(rows, changed) {
 }
 function stateHtml(type, title, desc, link) {
   const icon = type === 'error'
-    ? `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
-    : `<svg class="spinner-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`;
-  const lnk = link ? `<br><br><a href="${link}" target="_blank" rel="noopener" style="color:var(--accent); font-weight:600;">→ スプレッドシートを直接開く</a>` : '';
+    ? `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
+    : `<svg class="spinner-svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`;
+  const lnk = link ? `<br><br><a href="${link}" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;">→ スプレッドシートを直接開く</a>` : '';
   return `<div class="table-state">${icon}<div class="table-state-title">${esc(title)}</div><div class="table-state-desc">${esc(desc)}${lnk}</div></div>`;
 }
 function fetchViaGviz() {
@@ -520,20 +692,16 @@ async function fetchTimetable() {
     document.getElementById('timetable').innerHTML = stateHtml('loading', 'データ取得中', 'スプレッドシートへ接続しています…');
   }
   let rows = null;
-  let method = '';
   try {
     rows = await fetchViaGviz();
-    method = 'gviz/tq (JSONP)';
   } catch (e1) {
     try {
       rows = await fetchViaCSV();
-      method = 'CSV Fallback';
     } catch (e2) {
       isFetching = false;
       if (!prevRows) {
         document.getElementById('timetable').innerHTML = stateHtml(
-          'error',
-          'データ取得エラー',
+          'error', 'データ取得エラー',
           'スプレッドシートへの接続に失敗しました。公開設定を確認してください。',
           `https://docs.google.com/spreadsheets/d/${SHEET_ID}/`
         );
@@ -553,6 +721,11 @@ async function fetchTimetable() {
     document.getElementById('change-alert').classList.add('show');
     document.getElementById('change-desc').textContent = `${changes.length} 箇所の変更が検出されました。登録済みの方へ通知が送信されます。`;
     tryBrowserNotify(changes.length);
+    const iframe = document.getElementById('sheets-iframe');
+    const base = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/pubhtml?gid=${GID}&single=true&widget=false&chrome=false`;
+    iframeRevealed = false;
+    iframe.classList.remove('loaded');
+    iframe.src = base + '&t=' + Date.now();
   } else {
     document.getElementById('change-alert').classList.remove('show');
   }
@@ -560,7 +733,7 @@ async function fetchTimetable() {
   const now = new Date();
   const ts = now.toLocaleDateString('ja-JP') + ' ' + now.toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'});
   document.getElementById('updated-chip').textContent = ts + ' 更新';
-  setStatus('ok', '正常', `取得完了`);
+  setStatus('ok', '正常', '取得完了');
   isFetching = false;
   scheduleNext();
 }
@@ -592,12 +765,7 @@ function manualRefresh() {
     btn.removeAttribute('disabled');
   });
 }
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible' && nextAt && Date.now() > nextAt) {
-    clearTimeout(refreshTimer);
-    fetchTimetable();
-  }
-});
+
 fetchTimetable();
 </script>
 </body>
