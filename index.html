@@ -557,12 +557,25 @@ a:hover{color:var(--accent-light);}
       <div class="widget-step">
         <div class="widget-step-num">2</div>
         <div class="widget-step-body">
-          <p class="widget-step-title">スクリプトを追加する</p>
+          <p class="widget-step-title">スクリプトをインポートする</p>
           <p class="widget-step-desc">
-            Scriptable を開き、右上の <strong style="color:var(--text-primary);">+</strong> ボタン → 右上の <strong style="color:var(--text-primary);">⋯</strong> → <strong style="color:var(--text-primary);">Add Script from URL</strong> をタップ。<br>
-            下記の URL を貼り付けて「Add Script」を押してください。
+            下のボタンをタップすると Scriptable が自動で起動し、スクリプトが追加されます。<br>
+            ボタンが反応しない場合は「手動でコピペ」を使ってください。
           </p>
-          <div class="widget-copy-wrap">
+          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+            <a class="btn btn-primary btn-sm"
+               href="scriptable:///add-script?url=https%3A%2F%2Fgist.githubusercontent.com%2Fastro-root%2Fd6da0ed8655f86409309b4abb92f50b0%2Fraw%2Ftimetable.js">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Scriptable にインポート
+            </a>
+            <a class="btn btn-ghost btn-sm"
+               href="https://gist.githubusercontent.com/astro-root/d6da0ed8655f86409309b4abb92f50b0/raw/timetable.js"
+               target="_blank" rel="noopener">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              手動でコピペ
+            </a>
+          </div>
+          <div class="widget-copy-wrap" style="margin-top:10px;">
             <div class="widget-step-tag" id="gist-url">https://gist.githubusercontent.com/astro-root/d6da0ed8655f86409309b4abb92f50b0/raw/timetable.js</div>
             <button class="btn-copy" id="copy-btn" onclick="copyGistUrl()" aria-label="URLをコピー">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
