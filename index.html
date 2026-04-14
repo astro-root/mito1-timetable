@@ -297,6 +297,56 @@ a:hover{color:var(--accent-light);}
 .card-desc{font-size:12px;color:var(--text-secondary);line-height:1.65;flex:1;margin-bottom:16px;}
 
 /* ══════════════════════════════════════
+   WIDGET STEPS
+══════════════════════════════════════ */
+.widget-steps{display:flex;flex-direction:column;gap:0;}
+.widget-step{
+  display:flex;align-items:flex-start;gap:16px;
+  background:var(--bg-surface);border:1px solid var(--border);
+  border-radius:14px;padding:18px 20px;
+  box-shadow:var(--shadow-sm);transition:all .25s ease;
+  position:relative;
+}
+.widget-step:not(:last-child){
+  border-bottom-left-radius:0;border-bottom-right-radius:0;
+  border-bottom-color:transparent;
+}
+.widget-step:not(:first-child){
+  border-top-left-radius:0;border-top-right-radius:0;
+}
+.widget-step:hover{border-color:var(--border-strong);z-index:1;}
+.widget-step-num{
+  width:30px;height:30px;border-radius:50%;flex-shrink:0;
+  background:var(--accent-dim);border:1.5px solid var(--accent-ring);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:var(--accent);
+  font-family:'JetBrains Mono',monospace;margin-top:1px;
+}
+.widget-step-body{flex:1;min-width:0;}
+.widget-step-title{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:5px;}
+.widget-step-desc{font-size:12px;color:var(--text-secondary);line-height:1.7;}
+.widget-step-tag{
+  display:inline-block;background:var(--bg-elevated);border:1px solid var(--border-strong);
+  border-radius:6px;padding:2px 8px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);
+  word-break:break-all;margin-top:8px;
+}
+.widget-step-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--green-dim);border:1px solid rgba(76,184,125,.28);
+  border-radius:999px;padding:2px 9px;
+  font-size:10px;font-weight:700;color:var(--green);
+  font-family:'JetBrains Mono',monospace;margin-left:8px;
+}
+.widget-note{
+  background:var(--accent-dim);border:1px solid var(--accent-ring);
+  border-radius:10px;padding:13px 16px;margin-top:14px;
+  font-size:12px;color:var(--text-secondary);line-height:1.7;
+  display:flex;align-items:flex-start;gap:10px;
+}
+.widget-note-icon{font-size:15px;flex-shrink:0;margin-top:1px;}
+
+/* ══════════════════════════════════════
    ABOUT
 ══════════════════════════════════════ */
 .info-card{
@@ -454,6 +504,83 @@ a:hover{color:var(--accent-light);}
     </div>
   </section>
 
+  <!-- ══ WIDGET ══ -->
+  <div class="section-head fade-in fade-in-3" style="margin-top:52px;">
+    <span class="section-label" aria-hidden="true">ウィジェット</span>
+    <div class="section-line" aria-hidden="true"></div>
+    <span class="section-label" aria-hidden="true">iOS WIDGET</span>
+  </div>
+
+  <section class="fade-in fade-in-4" aria-label="iOSウィジェット設定">
+    <div class="card" style="margin-bottom:18px;flex-direction:row;align-items:center;gap:20px;flex-wrap:wrap;">
+      <div class="card-icon-wrap" style="margin-bottom:0;" aria-hidden="true">📱</div>
+      <div style="flex:1;min-width:180px;">
+        <h2 class="card-title" style="margin-bottom:4px;">iPhone / iPad ホーム画面に時間割を表示</h2>
+        <p class="card-desc" style="margin-bottom:0;">Scriptable アプリを使って、最新の時間割をウィジェットとして常時表示できます。アプリは無料です。</p>
+      </div>
+    </div>
+
+    <div class="widget-steps">
+
+      <div class="widget-step">
+        <div class="widget-step-num">1</div>
+        <div class="widget-step-body">
+          <p class="widget-step-title">Scriptable をインストール</p>
+          <p class="widget-step-desc">
+            iPhone / iPad の App Store で「Scriptable」を検索してインストールしてください。無料アプリです。
+          </p>
+          <a class="btn btn-ghost btn-sm" href="https://apps.apple.com/jp/app/scriptable/id1405459188" target="_blank" rel="noopener" style="margin-top:10px;display:inline-flex;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            App Store で開く
+          </a>
+        </div>
+      </div>
+
+      <div class="widget-step">
+        <div class="widget-step-num">2</div>
+        <div class="widget-step-body">
+          <p class="widget-step-title">スクリプトを追加する</p>
+          <p class="widget-step-desc">
+            Scriptable を開き、右上の <strong style="color:var(--text-primary);">+</strong> ボタン → 右上の <strong style="color:var(--text-primary);">⋯</strong> → <strong style="color:var(--text-primary);">Add Script from URL</strong> をタップ。<br>
+            下記の URL を貼り付けて「Add Script」を押してください。
+          </p>
+          <div class="widget-step-tag">https://gist.githubusercontent.com/astro-root/d6da0ed8655f86409309b4abb92f50b0/raw/timetable.js</div>
+        </div>
+      </div>
+
+      <div class="widget-step">
+        <div class="widget-step-num">3</div>
+        <div class="widget-step-body">
+          <p class="widget-step-title">スクリプトを実行して確認</p>
+          <p class="widget-step-desc">
+            追加されたスクリプトをタップして開き、▶ ボタンで実行します。<br>
+            時間割の画像がプレビュー表示されれば成功です。
+          </p>
+        </div>
+      </div>
+
+      <div class="widget-step">
+        <div class="widget-step-num">4</div>
+        <div class="widget-step-body">
+          <p class="widget-step-title">ホーム画面にウィジェットを追加</p>
+          <p class="widget-step-desc">
+            ① ホーム画面を長押し → 左上の <strong style="color:var(--text-primary);">+</strong> をタップ<br>
+            ② 「Scriptable」を検索して選択<br>
+            ③ サイズは <strong style="color:var(--text-primary);">中（Medium）</strong> を選んで「ウィジェットを追加」<br>
+            ④ 追加されたウィジェットをタップ → Script の欄でインポートしたスクリプトを選択<br>
+            ⑤ When Interacting を <strong style="color:var(--text-primary);">Run Script</strong> に設定するとタップで手動更新できます
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="widget-note">
+      <span class="widget-note-icon">💡</span>
+      <span>ウィジェットの更新頻度は iOS が自動で制御します。時間割が変更されたタイミングではウィジェットをタップして手動更新するか、しばらく待つと最新の内容に切り替わります。</span>
+    </div>
+  </section>
+
   <!-- ══ ABOUT ══ -->
   <div class="section-head fade-in fade-in-3" style="margin-top:52px;">
     <span class="section-label" aria-hidden="true">このサービスについて</span>
@@ -500,14 +627,14 @@ a:hover{color:var(--accent-light);}
   <footer class="site-footer">
     <div class="footer-text">
       ご不明な点・ご要望は開発者までお気軽にどうぞ<br>
-      <a href="mailto:contact@astro-root.com">contact@astro-root.com</a>
+      <a href="/cdn-cgi/l/email-protection#67040809130604132706141315084a150808134904080a"><span class="__cf_email__" data-cfemail="05666a6b7164667145647671776a28776a6a712b666a68">[email&#160;protected]</span></a>
     </div>
     <div class="footer-mono">POWERED BY GOOGLE APPS SCRIPT<br>© ASTRO-ROOT</div>
   </footer>
 
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function initTheme() {
   const saved = localStorage.getItem('theme');
   const pref  = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
@@ -519,7 +646,8 @@ function applyTheme(t, save) {
   if (save) localStorage.setItem('theme', t);
 }
 function toggleTheme() {
-  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
+  const current = document.documentElement.getAttribute('data-theme');
+  applyTheme(current === 'dark' ? 'light' : 'dark', true);
 }
 </script>
 </body>
