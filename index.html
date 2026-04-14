@@ -338,6 +338,24 @@ a:hover{color:var(--accent-light);}
   font-size:10px;font-weight:700;color:var(--green);
   font-family:'JetBrains Mono',monospace;margin-left:8px;
 }
+.widget-copy-wrap{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap;}
+.widget-step-tag{
+  flex:1;min-width:0;
+  background:var(--bg-elevated);border:1px solid var(--border-strong);
+  border-radius:6px;padding:7px 10px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);
+  word-break:break-all;overflow:hidden;
+}
+.btn-copy{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:6px 12px;border-radius:7px;
+  font-size:11px;font-weight:600;font-family:'Noto Sans JP',sans-serif;
+  cursor:pointer;border:1px solid var(--border-strong);
+  background:var(--bg-elevated);color:var(--text-secondary);
+  transition:all .2s;white-space:nowrap;flex-shrink:0;
+}
+.btn-copy:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim);}
+.btn-copy.copied{border-color:var(--green);color:var(--green);background:var(--green-dim);}
 .widget-note{
   background:var(--accent-dim);border:1px solid var(--accent-ring);
   border-radius:10px;padding:13px 16px;margin-top:14px;
@@ -544,7 +562,13 @@ a:hover{color:var(--accent-light);}
             Scriptable を開き、右上の <strong style="color:var(--text-primary);">+</strong> ボタン → 右上の <strong style="color:var(--text-primary);">⋯</strong> → <strong style="color:var(--text-primary);">Add Script from URL</strong> をタップ。<br>
             下記の URL を貼り付けて「Add Script」を押してください。
           </p>
-          <div class="widget-step-tag">https://gist.githubusercontent.com/astro-root/d6da0ed8655f86409309b4abb92f50b0/raw/timetable.js</div>
+          <div class="widget-copy-wrap">
+            <div class="widget-step-tag" id="gist-url">https://gist.githubusercontent.com/astro-root/d6da0ed8655f86409309b4abb92f50b0/raw/timetable.js</div>
+            <button class="btn-copy" id="copy-btn" onclick="copyGistUrl()" aria-label="URLをコピー">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span id="copy-label">コピー</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -648,6 +672,19 @@ function applyTheme(t, save) {
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
   applyTheme(current === 'dark' ? 'light' : 'dark', true);
+}
+function copyGistUrl() {
+  const url = document.getElementById('gist-url').textContent.trim();
+  const btn = document.getElementById('copy-btn');
+  const label = document.getElementById('copy-label');
+  navigator.clipboard.writeText(url).then(function() {
+    btn.classList.add('copied');
+    label.textContent = 'コピーしました';
+    setTimeout(function() {
+      btn.classList.remove('copied');
+      label.textContent = 'コピー';
+    }, 2000);
+  });
 }
 </script>
 </body>
